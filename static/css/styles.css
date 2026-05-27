@@ -1,0 +1,169 @@
+:root {
+    --primary-color: #004a99; /* Bleu institutionnel ART */
+    --secondary-color: #008751; /* Vert émeraude */
+    --accent-color: #00c6ff;
+    --bg-light: #f4f7f6;
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --text-main: #2c3e50;
+    --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Glassmorphism */
+header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    letter-spacing: -1px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.direction-tag {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+/* App Grid */
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.app-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 40px 0 rgba(0, 74, 153, 0.15);
+}
+
+.app-icon {
+    width: 64px;
+    height: 64px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.app-card:hover .app-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.app-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.app-desc {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Footer */
+footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Admin Specific */
+.admin-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.admin-link:hover {
+    opacity: 0.8;
+}
+
+/* Utilities */
+.btn-logout {
+    color: #e74c3c;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}

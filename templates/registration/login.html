@@ -1,0 +1,171 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion — Portail Opale ART</title>
+    <meta
+      name="description"
+      content="Connectez-vous à votre espace de travail OPALE, le portail Service Hub Unifié de l'ART."
+    />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+  </head>
+  <body class="login-page">
+    <div class="login-container">
+      <!-- Left Panel: Branding -->
+      <div class="login-brand">
+        <div class="brand-content">
+          <a
+            href="{% url 'root' %}"
+            style="
+              display: inline-block;
+              color: rgba(255, 255, 255, 0.7);
+              font-size: 0.85rem;
+              margin-bottom: var(--space-6);
+              transition: color 0.2s;
+            "
+            onmouseover="this.style.color = '#fff'"
+            onmouseout="this.style.color = 'rgba(255,255,255,0.7)'"
+          >
+            <i
+              data-lucide="arrow-left"
+              style="
+                width: 14px;
+                height: 14px;
+                vertical-align: middle;
+                margin-right: 4px;
+              "
+            ></i
+            >Retour à l'accueil
+          </a>
+          <div class="brand-logo">OPALE</div>
+          <div class="brand-tag">Service Hub Unifié</div>
+          <div class="brand-divider"></div>
+          <p class="brand-description">
+            Accédez à toutes vos applications métier depuis un point d'entrée
+            sécurisé.
+          </p>
+          <div class="brand-features">
+            <div class="brand-feature">
+              <i data-lucide="shield-check"></i>
+              <span>Accès sécurisé par Direction</span>
+            </div>
+            <div class="brand-feature">
+              <i data-lucide="layers"></i>
+              <span>Applications centralisées</span>
+            </div>
+            <div class="brand-feature">
+              <i data-lucide="activity"></i>
+              <span>Audit et traçabilité complète</span>
+            </div>
+          </div>
+        </div>
+        <div class="brand-footer">
+          <img
+            src="{% static 'img/art_logo.jpg' %}"
+            alt="Logo ART"
+            class="brand-logo-img"
+          />
+          <span>© 2026 Agence de Régulation des Télécommunications</span>
+        </div>
+      </div>
+
+      <!-- Right Panel: Login Form -->
+      <div class="login-form-panel">
+        <div class="login-form-wrapper glass-card">
+          <div class="login-header">
+            <div class="login-icon">
+              <i data-lucide="log-in"></i>
+            </div>
+            <h1 class="login-title">Connexion</h1>
+            <p class="login-subtitle">Veuillez saisir vos identifiants ART</p>
+          </div>
+
+          {% if form.errors %}
+          <div class="alert alert-danger">
+            <i data-lucide="alert-circle"></i>
+            Identifiant ou mot de passe incorrect. Veuillez réessayer.
+          </div>
+          {% endif %}
+
+          <form method="post" class="opale-form login-form-fields">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label for="id_username" class="form-label">
+                <i data-lucide="user"></i> Identifiant
+              </label>
+              <input
+                type="text"
+                name="username"
+                id="id_username"
+                class="form-input"
+                placeholder="votre.identifiant"
+                autocomplete="username"
+                required
+                autofocus
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="id_password" class="form-label">
+                <i data-lucide="lock"></i> Mot de passe
+              </label>
+              <div class="input-reveal">
+                <input
+                  type="password"
+                  name="password"
+                  id="id_password"
+                  class="form-input"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="reveal-btn"
+                  id="reveal-btn"
+                  tabindex="-1"
+                  aria-label="Afficher/masquer le mot de passe"
+                >
+                  <i data-lucide="eye" id="reveal-icon"></i>
+                </button>
+              </div>
+            </div>
+
+            {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary btn-full btn-login">
+              <i data-lucide="log-in"></i> Se connecter
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+      const revealBtn = document.getElementById("reveal-btn");
+      const pwInput = document.getElementById("id_password");
+      const revealIcon = document.getElementById("reveal-icon");
+      if (revealBtn) {
+        revealBtn.addEventListener("click", () => {
+          const isHidden = pwInput.type === "password";
+          pwInput.type = isHidden ? "text" : "password";
+          revealIcon.setAttribute("data-lucide", isHidden ? "eye-off" : "eye");
+          lucide.createIcons();
+        });
+      }
+    </script>
+  </body>
+</html>

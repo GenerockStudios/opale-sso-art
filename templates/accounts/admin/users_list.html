@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestion des Utilisateurs — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="users" class="page-title-icon"></i> Gestion des Utilisateurs</h1>
+        <p class="page-subtitle">{{ users|length }} compte{{ users|length|pluralize }} enregistré{{ users|length|pluralize }}</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'gestion_users_create' %}" class="btn btn-primary">
+            <i data-lucide="user-plus"></i> Nouvel utilisateur
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}"><i data-lucide="{% if 'success' in message.tags %}check-circle{% else %}alert-circle{% endif %}"></i> {{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Filters -->
+<div class="glass-card filter-panel">
+    <form method="get" class="filter-form" id="user-filter-form">
+        <div class="filter-group">
+            <label class="form-label"><i data-lucide="search"></i> Recherche</label>
+            <input type="text" name="q" value="{{ query }}" class="form-input" placeholder="Nom, identifiant, email…">
+        </div>
+        <div class="filter-group">
+            <label class="form-label"><i data-lucide="building-2"></i> Direction</label>
+            <select name="direction" class="form-input" onchange="this.form.submit()">
+                <option value="">Toutes</option>
+                {% for dir in directions %}
+                    <option value="{{ dir.id }}" {% if selected_direction == dir.id|stringformat:"s" %}selected{% endif %}>{{ dir.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="filter-group">
+            <label class="form-label"><i data-lucide="shield"></i> Rôle</label>
+            <select name="role" class="form-input" onchange="this.form.submit()">
+                <option value="">Tous les rôles</option>
+                {% for value, label in role_choices %}
+                    <option value="{{ value }}" {% if selected_role == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button type="submit" class="btn btn-primary"><i data-lucide="search"></i> Filtrer</button>
+            {% if query or selected_direction or selected_role %}
+                <a href="{% url 'gestion_users_list' %}" class="btn btn-ghost"><i data-lucide="x"></i> Effacer</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- Users Table -->
+<div class="glass-card table-card">
+    <div class="table-header">
+        <span class="table-title"><i data-lucide="list"></i> Liste des comptes</span>
+        <span class="table-count">{{ users|length }} résultat{{ users|length|pluralize }}</span>
+    </div>
+
+    {% if users %}
+    <div class="table-wrapper">
+        <table class="opale-table">
+            <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Identifiant</th>
+                    <th>Direction</th>
+                    <th>Rôle</th>
+                    <th>Statut</th>
+                    <th>Admin</th>
+                    <th style="text-align:right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr class="log-row {% if not u.is_active %}row--inactive{% endif %}">
+                    <td>
+                        <div class="user-chip">
+                            <span class="user-avatar-mini {% if not u.is_active %}avatar--inactive{% endif %}">{{ u.first_name|first|upper|default:u.username|first|upper }}</span>
+                            <div>
+                                <div style="font-weight:600; font-size:0.875rem;">{{ u.get_full_name|default:u.username }}</div>
+                                <div style="font-size:0.75rem; color:var(--color-text-muted);">{{ u.email|default:"—" }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><code style="font-size:0.8rem; background:rgba(0,0,0,0.05); padding:2px 6px; border-radius:4px;">{{ u.username }}</code></td>
+                    <td>
+                        {% if u.direction %}
+                            <span class="dir-code-badge">{{ u.direction.code }}</span>
+                            <span style="font-size:0.82rem;">{{ u.direction.nom }}</span>
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="employee-role-badge role-{{ u.role|lower }}">{{ u.get_role_display }}</span>
+                    </td>
+                    <td>
+                        {% if u.is_active %}
+                            <span class="status-pill status-pill--active">Actif</span>
+                        {% else %}
+                            <span class="status-pill status-pill--inactive">Inactif</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if u.is_staff %}
+                            <i data-lucide="shield-check" style="color:var(--color-secondary); width:18px; height:18px;" title="Administrateur"></i>
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="row-actions">
+                            <a href="{% url 'gestion_users_edit' u.id %}" class="btn-action btn-action--edit" title="Modifier">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            {% if u != request.user %}
+                            <form method="post" action="{% url 'gestion_users_toggle' u.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-action {% if u.is_active %}btn-action--warn{% else %}btn-action--success{% endif %}" title="{% if u.is_active %}Désactiver{% else %}Activer{% endif %}">
+                                    <i data-lucide="{% if u.is_active %}pause-circle{% else %}play-circle{% endif %}"></i>
+                                </button>
+                            </form>
+                            <a href="{% url 'gestion_users_delete' u.id %}" class="btn-action btn-action--danger" title="Supprimer">
+                                <i data-lucide="trash-2"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <i data-lucide="user-x" class="empty-icon"></i>
+        <h3>Aucun utilisateur trouvé</h3>
+        <p>Modifiez vos filtres ou créez un premier compte.</p>
+        <a href="{% url 'gestion_users_create' %}" class="btn btn-primary"><i data-lucide="user-plus"></i> Créer un utilisateur</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

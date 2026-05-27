@@ -1,0 +1,240 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Opale — Portail ART{% endblock %}</title>
+    <meta
+      name="description"
+      content="OPALE — Service Hub Unifié de l'Agence de Régulation des Télécommunications."
+    />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body class="app-body">
+    {% if user.is_authenticated %}
+    <!-- ══════════════════════════════════════════════
+         SIDEBAR
+         ══════════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        <a href="{% url 'dashboard' %}" class="sidebar-logo-link">
+          <span class="sidebar-logo-text">OPALE</span>
+          <span class="sidebar-logo-sub">ART</span>
+        </a>
+        <button
+          class="sidebar-collapse-btn"
+          id="sidebar-toggle"
+          aria-label="Réduire le menu"
+        >
+          <i data-lucide="panel-left-close" id="sidebar-toggle-icon"></i>
+        </button>
+      </div>
+
+      <!-- User Card -->
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">
+          {{ user.first_name|first|upper|default:user.username|first|upper }}{{ user.last_name|first|upper }}
+        </div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">
+            {{ user.get_full_name|default:user.username }}
+          </div>
+          {% if user.direction %}
+          <div class="sidebar-user-dir">{{ user.direction.nom }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav
+        class="sidebar-nav"
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div class="sidebar-section-label">Espace Collaborateur</div>
+        <a
+          href="{% url 'dashboard' %}"
+          class="sidebar-link {% if request.resolver_match.url_name == 'dashboard' %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="layout-dashboard"></i>
+          <span>Tableau de bord</span>
+        </a>
+        <a
+          href="{% url 'annuaire' %}"
+          class="sidebar-link {% if 'annuaire' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="users"></i>
+          <span>Annuaire</span>
+        </a>
+        <a
+          href="{% url 'profile' %}"
+          class="sidebar-link {% if 'profile' in request.resolver_match.url_name or 'change_password' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="user-circle"></i>
+          <span>Mon Profil</span>
+        </a>
+
+        {% if user.is_staff %}
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-label">Administration</div>
+
+        <a
+          href="{% url 'gestion_users_list' %}"
+          class="sidebar-link sidebar-link--admin {% if 'gestion_users' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="user-cog"></i>
+          <span>Utilisateurs</span>
+        </a>
+        <a
+          href="{% url 'gestion_apps_list' %}"
+          class="sidebar-link sidebar-link--admin {% if 'gestion_apps' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="layout-grid"></i>
+          <span>Applications</span>
+        </a>
+        <a
+          href="{% url 'gestion_directions_list' %}"
+          class="sidebar-link sidebar-link--admin {% if 'gestion_directions' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="building-2"></i>
+          <span>Directions</span>
+        </a>
+        <a
+          href="{% url 'audit_matrix' %}"
+          class="sidebar-link sidebar-link--admin {% if 'audit_matrix' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="grid-3x3"></i>
+          <span>Matrice des droits</span>
+        </a>
+        <a
+          href="{% url 'audit_logs' %}"
+          class="sidebar-link sidebar-link--admin {% if 'audit_logs' in request.resolver_match.url_name %}sidebar-link--active{% endif %}"
+        >
+          <i data-lucide="activity"></i>
+          <span>Audit & Logs</span>
+        </a>
+        {% endif %}
+      </nav>
+
+      <!-- Logout at bottom -->
+      <div class="sidebar-footer">
+        {% if user.direction %}
+        <span class="sidebar-dir-pill"
+          >{{ user.direction.code|default:user.direction.nom }}</span
+        >
+        {% endif %}
+        <form action="{% url 'logout' %}" method="post" style="width: 100%">
+          {% csrf_token %}
+          <button type="submit" class="sidebar-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span>Déconnexion</span>
+          </button>
+        </form>
+      </div>
+    </aside>
+    {% endif %}
+
+    <!-- ══════════════════════════════════════════════
+         MAIN CONTENT AREA
+         ══════════════════════════════════════════════ -->
+    <div
+      class="app-main {% if not user.is_authenticated %}app-main--full{% endif %}"
+      id="app-main"
+    >
+      <!-- Top Bar (breadcrumb + page actions) -->
+      {% if user.is_authenticated %}
+      <div class="topbar">
+        <button
+          class="topbar-menu-btn"
+          id="topbar-menu-btn"
+          aria-label="Ouvrir le menu"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="topbar-title">{% block page_title %}{% endblock %}</div>
+        <div class="topbar-right">
+          <a
+            href="{% url 'profile' %}"
+            class="topbar-profile-link"
+            title="Mon profil"
+          >
+            <span class="topbar-avatar"
+              >{{ user.first_name|first|upper|default:user.username|first|upper }}</span
+            >
+          </a>
+        </div>
+      </div>
+      {% endif %}
+
+      <main class="page-content">{% block content %}{% endblock %}</main>
+
+      {% if user.is_authenticated %}
+      <footer class="app-footer">
+        <p>
+          © 2026 Agence de Régulation des Télécommunications (ART) — Portail
+          OPALE
+        </p>
+      </footer>
+      {% endif %}
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      // Sidebar collapse toggle
+      const sidebar = document.getElementById("sidebar");
+      const appMain = document.getElementById("app-main");
+      const toggleBtn = document.getElementById("sidebar-toggle");
+      const topbarMenuBtn = document.getElementById("topbar-menu-btn");
+      const toggleIcon = document.getElementById("sidebar-toggle-icon");
+
+      // Restore state from localStorage
+      const collapsed = localStorage.getItem("sidebar_collapsed") === "true";
+      if (collapsed && sidebar) {
+        sidebar.classList.add("sidebar--collapsed");
+        appMain && appMain.classList.add("app-main--collapsed");
+      }
+
+      function toggleSidebar() {
+        if (!sidebar) return;
+        const isCollapsed = sidebar.classList.toggle("sidebar--collapsed");
+        appMain && appMain.classList.toggle("app-main--collapsed", isCollapsed);
+        if (toggleIcon) {
+          toggleIcon.setAttribute(
+            "data-lucide",
+            isCollapsed ? "panel-left-open" : "panel-left-close",
+          );
+          lucide.createIcons();
+        }
+        localStorage.setItem("sidebar_collapsed", isCollapsed);
+      }
+
+      toggleBtn && toggleBtn.addEventListener("click", toggleSidebar);
+      topbarMenuBtn && topbarMenuBtn.addEventListener("click", toggleSidebar);
+
+      // Close sidebar on mobile when clicking outside
+      document.addEventListener("click", function (e) {
+        if (
+          window.innerWidth < 768 &&
+          sidebar &&
+          !sidebar.contains(e.target) &&
+          topbarMenuBtn &&
+          !topbarMenuBtn.contains(e.target)
+        ) {
+          sidebar.classList.remove("sidebar--open");
+        }
+      });
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

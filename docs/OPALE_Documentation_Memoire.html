@@ -1,0 +1,441 @@
+<!DOCTYPE html><html><head>
+      <title>OPALE_Documentation_Memoire</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\ADMIN\.antigravity\extensions\shd101wyy.markdown-preview-enhanced-0.8.22-universal\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:///c:\Users\ADMIN\.antigravity\extensions\shd101wyy.markdown-preview-enhanced-0.8.22-universal\crossnote\dependencies\mermaid\mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script>
+    </head>
+    <body for="html-export">
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="mémoire-de-master--architecture-modélisation-et-implémentation-dopale-art">Mémoire de Master : Architecture, Modélisation et Implémentation d'OPALE (ART) </h1>
+<h2 id="synthèse-exécutive-et-avant-propos">Synthèse Exécutive et Avant-Propos </h2>
+<p>Le présent document constitue l'ossature technique et fonctionnelle du projet <strong>OPALE</strong>, développé pour répondre aux exigences complexes de l'ART (Agence de Régulation des Télécommunications). Conçu dans le cadre d'un mémoire de Master en Ingénierie Logicielle, ce dossier a vocation à transcender la simple documentation technique pour s'ériger en un véritable traité d'architecture logicielle. Il articule les choix de conception, les modélisations conceptuelles et les paradigmes d'implémentation qui sous-tendent ce système critique.</p>
+<p>L'objectif de cette documentation est de démontrer une maîtrise approfondie des concepts d'ingénierie, allant de l'abstraction modélisatrice (UML) jusqu'à la matérialisation d'un code robuste, sécurisé et hautement évolutif. Ce document a été rédigé avec une rigueur absolue, garantissant qu'aucune question architecturale, méthodologique ou de sécurité ne demeure en suspens.</p>
+<hr>
+<h2 id="1-introduction-substantielle">1. Introduction Substantielle </h2>
+<h3 id="11-état-de-lart-et-problématique--la-fragmentation-systémique">1.1. État de l'Art et Problématique : La Fragmentation Systémique </h3>
+<p>Dans toute organisation atteignant une taille critique telle que l'ART, le système d'information subit inévitablement une entropie naturelle. Au fil des années, les différentes directions (Ressources Humaines, Finance, Exploitation, Juridique) se sont dotées de solutions logicielles hétérogènes, répondant à des besoins immédiats mais créant, sur le long terme, un écosystème hautement fragmenté. Cette prolifération d'outils, souvent qualifiée de "Shadow IT" ou de croissance organique non maîtrisée, engendre une triple problématique majeure :</p>
+<ol>
+<li><strong>Déficit Ergonomique et Charge Cognitive :</strong> L'agent de l'ART se voit contraint d'évoluer au sein d'un labyrinthe applicatif. Il doit mémoriser des dizaines d'adresses (URL), jongler avec de multiples fenêtres et s'adapter à des interfaces utilisateur antagonistes. Cette friction ralentit les processus métiers et dégrade l'expérience collaborateur.</li>
+<li><strong>Opacité Sécuritaire :</strong> Avec une surface d'attaque fragmentée, garantir la sécurité des accès devient une tâche herculéenne pour la DSI. Comment s'assurer, lors du départ d'un collaborateur, que ses accès à la totalité des 200 applications externes ont bien été révoqués ? La gestion dispersée des habilitations constitue une vulnérabilité critique.</li>
+<li><strong>Absence d'Observabilité et de Centralisation :</strong> En l'absence d'un point de convergence, il est impossible d'avoir une vision holistique et en temps réel de l'utilisation des ressources informatiques. L'administration ne dispose d'aucun indicateur consolidé permettant d'analyser les flux de travail ou de détecter des anomalies comportementales.</li>
+</ol>
+<h3 id="12-la-réponse-architecturale--opale-comme-pivot-organisationnel">1.2. La Réponse Architecturale : OPALE comme Pivot Organisationnel </h3>
+<p>Pour pallier cette crise d'interopérabilité sans avoir à s'engager dans une refonte pharaonique (et souvent vouée à l'échec) de tous les logiciels existants, le projet <strong>OPALE</strong> a été conceptualisé. OPALE (Optimisation des Processus d'Accès et de Lancement d'Entreprise) ne remplace pas les applications existantes : il les chapeaute.</p>
+<p>Il s'agit d'un <strong>Service Hub unifié</strong>, agissant comme une vitrine unique, intelligente et sécurisée vers l'entièreté du patrimoine applicatif de l'ART. L'objectif d'OPALE est structuré autour de trois axes cardinaux :</p>
+<ul>
+<li><strong>Unifier l'Accès (Single Pane of Glass) :</strong> Offrir un portail unique, esthétique et ergonomique. Dès qu'un agent se connecte, toutes les applications nécessaires à sa mission lui sont présentées.</li>
+<li><strong>Sécuriser les Flux par l'Étanchéité :</strong> Opale filtre drastiquement l'accès. Le système sait, grâce à une cartographie précise de l'organigramme (par Direction), qui peut lancer quoi.</li>
+<li><strong>Tableau de Bord et Auditabilité :</strong> OPALE intègre un moteur de traçabilité granulaire : chaque action (clic, recherche, connexion) est enregistrée de façon immuable, transformant la plateforme en une véritable black-box pour la sécurité des systèmes d'information.</li>
+</ul>
+<p>En somme, OPALE est le chaînon manquant entre l'homme (l'agent de l'ART) et la machine (le parc logiciel).</p>
+<hr>
+<h2 id="2-méthodologie-danalyse-et-modélisation-conceptuelle">2. Méthodologie d'Analyse et Modélisation Conceptuelle </h2>
+<h3 id="21-le-paradigme-orienté-objet-et-labstraction-métier">2.1. Le Paradigme Orienté Objet et l'Abstraction Métier </h3>
+<p>Concevoir un système de cette envergure nécessite une modélisation préalable d'une précision chirurgicale. La méthodologie choisie repose sur une approche <strong>Orientée Objet (OO)</strong>, matérialisée par le langage de modélisation standardisé <strong>UML (Unified Modeling Language)</strong>.</p>
+<p>Pourquoi l'Orienté Objet ? Parce que la réalité métier de l'ART se décline en entités discrètes et palpables : l'Employé, sa Direction, l'Application à laquelle il veut accéder, et la Trace qu'il laisse. L'Orienté Objet permet de "réifier" ces concepts abstraits en classes logicielles dotées d'attributs (données) et de méthodes (comportements), garantissant une transition sans heurts entre la théorie conceptuelle et la base de données relationnelle.</p>
+<h3 id="22-diagramme-des-cas-dutilisation--délimitation-du-périmètre-fonctionnel">2.2. Diagramme des Cas d'Utilisation : Délimitation du Périmètre Fonctionnel </h3>
+<p>Le diagramme de cas d'utilisation définit les frontières du système et les prérogatives de chaque acteur. Nous avons catégorisé les acteurs en deux niveaux d'habilitation mutuellement exclusifs sur certaines fonctionnalités.</p>
+<div class="mermaid">graph LR
+    Utilisateur["👤 Utilisateur\n(Collaborateur / Manager)"]
+    Admin["🔑 Administrateur"]
+
+    subgraph OPALE ["Système OPALE — Service Hub ART"]
+        UC1(["S'authentifier"])
+        UC2(["Consulter le Dashboard"])
+        UC3(["Lancer une Application"])
+        UC4(["Vérifier les\nDroits d'accès"])
+        UC5(["Gérer son Profil"])
+        UC6(["Consulter l'Annuaire"])
+        UC7(["Gérer les Utilisateurs"])
+        UC8(["Gérer le Catalogue\ndes Applications"])
+        UC9(["Gérer la Matrice\ndes Droits"])
+        UC10(["Consulter les\nLogs d'Audit"])
+        UC11(["Journaliser\nl'Activité"])
+        UC12(["Désactiver / Activer\nun Compte"])
+        UC13(["Filtrer les Logs"])
+
+        %% «include» — condition sine qua non d'Authentification
+        UC2 -.-&gt;|"«include»"| UC1
+        UC3 -.-&gt;|"«include»"| UC1
+        UC5 -.-&gt;|"«include»"| UC1
+        UC6 -.-&gt;|"«include»"| UC1
+        UC7 -.-&gt;|"«include»"| UC1
+        UC8 -.-&gt;|"«include»"| UC1
+        UC9 -.-&gt;|"«include»"| UC1
+        UC10 -.-&gt;|"«include»"| UC1
+
+        %% «include» — sous-comportement OBLIGATOIRE
+        UC3 -.-&gt;|"«include»"| UC4
+        UC3 -.-&gt;|"«include»"| UC11
+        UC7 -.-&gt;|"«include»"| UC11
+        UC9 -.-&gt;|"«include»"| UC11
+
+        %% «extend» — comportement OPTIONNEL conditionnel
+        UC12 -.-&gt;|"«extend»"| UC7
+        UC13 -.-&gt;|"«extend»"| UC10
+    end
+
+    %% Généralisation entre acteurs (Admin hérite de Utilisateur)
+    Admin --&gt;|"«héritage»"| Utilisateur
+
+    Utilisateur --&gt; UC1
+    Utilisateur --&gt; UC2
+    Utilisateur --&gt; UC3
+    Utilisateur --&gt; UC5
+    Utilisateur --&gt; UC6
+
+    Admin --&gt; UC7
+    Admin --&gt; UC8
+    Admin --&gt; UC9
+    Admin --&gt; UC10
+
+    style Utilisateur fill:#e8f4f8,color:#333,stroke:#4a90d9
+    style Admin fill:#f8e8e8,color:#333,stroke:#d94a4a
+    style OPALE fill:#fbfdff,color:#333,stroke:#4a90d9
+</div><p><strong>Analyse Critique :</strong><br>
+Ce modèle met en évidence la ségrégation des rôles. L'Agent évolue dans un espace confiné et opérationnel (consulter, rechercher, lancer). L'Administrateur, en revanche, dispose du monopole de la matrice conceptuelle : c'est lui qui orchestre les associations entre les entités (qui va dans quelle direction, et quelle direction accède à quelle application).</p>
+<h3 id="23-diagramme-de-classes--la-colonne-vertébrale-du-système">2.3. Diagramme de Classes : La Colonne Vertébrale du Système </h3>
+<p>Le Diagramme de Classes illustre le modèle conceptuel de données, qui sera directement traduit en modèle relationnel (ORM Django) lors de l'implémentation.</p>
+<div class="mermaid">classDiagram
+    direction TB
+
+    class Utilisateur {
+        - id : int
+        - username : String
+        - password : String
+        - email : String
+        - first_name : String
+        - last_name : String
+        - is_active : boolean
+        - date_joined : Date
+        - role : String
+        + get_full_name() String
+    }
+
+    class Direction {
+        - id : int
+        - nom : String
+        - code : String
+        - description : String
+        - created_at : Date
+    }
+
+    class Application {
+        - id : int
+        - nom : String
+        - url_acces : String
+        - icone_name : String
+        - description : String
+        - est_actif : boolean
+        - created_at : Date
+    }
+
+    class DirectionApplication {
+        &lt;&lt;classe-association&gt;&gt;
+        - date_attribution : Date
+    }
+
+    class LogActivite {
+        - id : int
+        - action : String
+        - ip_address : String
+        - details : String
+        - cree_le : Date
+    }
+
+    Direction "0..1" -- "0..*" Utilisateur : employer
+    Utilisateur "0..1" -- "0..*" LogActivite : générer
+    Direction "0..*" -- "0..*" Application : habiliter
+    DirectionApplication .. Direction
+    DirectionApplication .. Application
+</div><p><strong>Explication des Relations :</strong></p>
+<ul>
+<li><strong>Utilisateur - Direction (1-N) :</strong> Un utilisateur appartient à une et une seule Direction (principe de rattachement hiérarchique strict), tandis qu'une Direction regroupe plusieurs utilisateurs.</li>
+<li><strong>Direction - Application (N-M) via DirectionApplication :</strong> C'est le cœur nucléaire d'OPALE. Une Application peut être accédée par plusieurs Directions, et une Direction a accès à plusieurs Applications. La classe associative <code>DirectionApplication</code> matérialise le "Droit d'Accès".</li>
+<li><strong>Utilisateur - LogActivite (1-N) :</strong> L'utilisateur génère des logs. L'auditabilité impose qu'un log d'activité soit obligatoirement lié à l'entité, créant de fait une traçabilité inviolable.</li>
+</ul>
+<h3 id="24-diagramme-de-séquence--le-mécanisme-critique-du-lancement">2.4. Diagramme de Séquence : Le Mécanisme Critique du Lancement </h3>
+<p>Le lancement d'une application n'est pas un simple lien hypertexte. C'est une <strong>transaction à haut risque</strong> qui nécessite une validation drastique.</p>
+<div class="mermaid">sequenceDiagram
+    participant U as Utilisateur
+    participant I as Interface (Vue Django)
+    participant C as Contrôleur (Logique Métier)
+    participant B as Base de Données
+    participant E as Application Externe
+
+    U-&gt;&gt;I: Clic sur "Lancer l'Application X"
+    I-&gt;&gt;C: abort_or_launch(Request, App_ID)
+
+    rect rgb(240, 248, 255)
+        Note over C,B: 1. Phase de Validation et d'Étanchéité
+        C-&gt;&gt;B: SELECT user.direction
+        B--&gt;&gt;C: Renvoie la Direction de l'Utilisateur
+        C-&gt;&gt;B: CHECK : Direction IN App.DirectionsAutorisées ?
+    end
+
+    alt Non autorisé (Brèche potentielle)
+        B--&gt;&gt;C: Faux
+        C-&gt;&gt;B: INSERT LogActivite (Access Denied)
+        C--&gt;&gt;I: HTTP 403 Forbidden
+        I--&gt;&gt;U: Affiche "Accès Refusé"
+    else Autorisé (Chemin Nominal)
+        B--&gt;&gt;C: Vrai
+        C-&gt;&gt;B: INSERT LogActivite (Access Granted)
+        C-&gt;&gt;E: Construction du flux d'accès (SSO/Token si actif)
+        C--&gt;&gt;I: Redirection HTTP 302 vers l'App Externe
+        I--&gt;&gt;U: Ouvre l'Application dans un nouvel onglet
+    end
+</div><p><strong>Analyse du Séquencement :</strong> La sécurité est implémentée en mode "Fail-safe". Le système doute par défaut. Ce diagramme révèle la synchronisation parfaite entre la vérification RBAC (Role-Based Access Control) et la génération du log d'audit, survenant <em>avant</em> de livrer effectivement le point de terminaison à l'utilisateur.</p>
+<hr>
+<h2 id="3-architecture-technique-et-patrons-de-conception">3. Architecture Technique et Patrons de Conception </h2>
+<p>Pour soutenir les exigences d'évolutivité, de fiabilité et de rapidité de livraison, l'architecture choisie est un <strong>Monolithe Modulaire basé sur Django 6.0</strong>.</p>
+<h3 id="31-le-choix-darchitectural--django-60-et-le-monolithe-modulaire">3.1. Le Choix d'Architectural : Django 6.0 et le Monolithe Modulaire </h3>
+<p>Dans le panorama technologique actuel, il est aisé de céder à la tentation des microservices. Cependant, pour un Hub centralisateur comme OPALE, dont les domaines fonctionnels sont fortement interdépendants (Habilitations, Utilisateurs, Logs), l'architecture en Monolithe Modulaire constitue la réponse la plus éclairée.</p>
+<ul>
+<li><strong>Cohésion Transversale :</strong> Le monolithe permet le partage immédiat de la base de données (Single Source of Truth), essentiel pour les jointures rapides entre les permissions et l'interface utilisateur.</li>
+<li><strong>Surcoût Infrastrcturel Nul :</strong> Là où les microservices exigent Kubernetes, de la gestion de trafic (Ingress) et de la cohérence à terme (Eventual Consistency), Django permet une cohérence ACID absolue propre aux transactions synchrones.</li>
+<li><strong>Versionnement 6.0 :</strong> L'utilisation de Django assure une protection "out of the box" contre les vulnérabilités de l'OWASP (CSRF, XSS, Clickjacking) tout en fournissant un ORM puissant pour encapsuler la complexité SQL.</li>
+</ul>
+<h3 id="32-patterns-de-conception-design-patterns-mobilisés">3.2. Patterns de Conception (Design Patterns) Mobilisés </h3>
+<p>L'ingénierie logicielle d'OPALE repose sur des patrons de conception éprouvés (issus du célèbre Gang of Four) garantissant la pérennité du code.</p>
+<ol>
+<li><strong>Architecture MVT (Model-View-Template) :</strong>
+<ul>
+<li>Variante spécifique à Django du paradigme MVC (Modèle-Vue-Contrôleur). Le <em>Model</em> (Nos classes Utilisateur, Application) gère la persistance de l'état. La <em>View</em> gère la logique de contrôle et d'autorisation. Le <em>Template</em> est le parseur HTML/CSS responsable du rendu visuel. Cette décomposition assure le principe de responsabilité unique (Single Responsibility Principle).</li>
+</ul>
+</li>
+<li><strong>Pattern Proxy / Façade :</strong>
+<ul>
+<li>Le système agit comme une Façade vis-à-vis du parc logiciel de l'ART. L'utilisateur ne connaît pas la complexité du réseau backend; il interagit uniquement avec OPALE, qui agit comme un Proxy, masquant la complexité des redirections et l'adressage IP des serveurs internes.</li>
+</ul>
+</li>
+<li><strong>RBAC (Role-Based Access Control) Intégré :</strong>
+<ul>
+<li>Bien qu'il s'agisse d'un concept de sécurité, le RBAC dicte la conception logicielle. Le rôle n'est pas codé en dur : il est dynamiquement déduit de l'entité <em>Direction</em>. Cela rend l'architecture extrêmement flexible. Si une Direction est créée lundi matin, elle s'insère nativement sans réécrire une ligne de code.</li>
+</ul>
+</li>
+<li><strong>Pattern Observer (Implémentation implicite pour les Logs) :</strong>
+<ul>
+<li>À travers des mécanismes de "Signals" (les observateurs de Django), le système "écoute" des événements vitaux du cycle de vie des modèles. Par exemple, au moment du login (<code>user_logged_in</code>), le signal capte l'événement et injècte un enregistrement silencieux en base pour l'audit, décélébrant totalement la logique d'authentification de la logique de journalisation.</li>
+</ul>
+</li>
+<li><strong>Association Object (Objet Association) :</strong>
+<ul>
+<li>La conceptualisation de la classe <code>DirectionApplication</code> est un pattern "Association Object". Au lieu d'avoir un simple lien relationnel bête, l'utilisation d'une table pivot explicite permet d'y accrocher des métadonnées temporelles (ex: "Depuis quand cette Direction a-t-elle le droit d'utiliser cette Application ?").</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="4-maîtrise-des-droits-et-filtrage-algorithmique-par-direction">4. Maîtrise des Droits et Filtrage Algorithmique par Direction </h2>
+<p>L'une des attentes fondamentales du jury de Master porte sur la sécurisation des données. Comment le logiciel s'adapte-t-il dynamiquement et de manière sécurisée à chaque Direction de l'ART ? C'est ce que nous nommons la <strong>Maîtrise des Droits</strong>.</p>
+<h3 id="41-la-logique-dalgorithmique-de-filtrage">4.1. La Logique d'Algorithmique de Filtrage </h3>
+<p>La force d'OPALE réside dans son moteur d'intersection algébrique. Le principe n'est pas de cacher des applications côté client (HTML/Javascript), ce qui constituerait une faille béante. La purge est opérée côté serveur (Backend), à l'origine même de l'extraction des données.</p>
+<p>Concrètement, l'ORM génère une requête de ce type :<br>
+<code>Application.objects.filter(directions_autorisees=user.direction).filter(statut_actif=True)</code></p>
+<p>L'algorithme de la base de données effectue une jointure interne automatique (<code>INNER JOIN</code>). Le Tableau de Bord génère donc un <em>Queryset</em> (un ensemble de résultats) strictement restreint aux applications mathématiquement liées à la Direction de l'utilisateur.<br>
+Si le Directeur de la Finance a 12 applications et l'agent RH n'en a que 4, l'interface s'auto-ajustera sans aucun <code>if/else</code> fastidieux dans le code, évitant ainsi le risque d'erreur humaine ("hardcoding").</p>
+<h3 id="42-le-concept-détanchéité-multi-niveaux">4.2. Le Concept d'Étanchéité Multi-Niveaux </h3>
+<p>En ingénierie de la sécurité logicielle, la défense doit être conçue en profondeur (Defense in Depth). L'étanchéité dans OPALE est assurée à deux niveaux infranchissables :</p>
+<ul>
+<li><strong>Étanchéité Visuelle (Niveau Vue) :</strong> La vue Django ne fournit au template HTML que les applications permises. Le reste du catalogue est invisible. C'est l'étanchéité par obscurcissement.</li>
+<li><strong>Étanchéité Active (Niveau Contrôleur) :</strong> Imaginons qu'un utilisateur malveillant écoute le réseau, devine l'ID d'une application interdite (par exemple l'App <code>id=42</code> réservée aux administrateurs) et tente de forcer l'accès en saisissant directement l'URL : <code>mon-site.art/launch/42</code>.
+<ul>
+<li>Dans OPALE, la vue responsable du lancement (<code>launch_action</code>) réévalue INSTANTANÉMENT le droit métier de l'utilisateur.</li>
+<li>Le code effectue un <code>get_object_or_404(Application, id=42, directions_autorisees=request.user.direction)</code>.</li>
+<li>Si la condition échoue, la transaction est court-circuitée. L'action avorte immédiatement et déclenche la création d'un log de sécurité critique. L'étanchéité est absolue.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="5-la-partie-action-de-lutilisateur--un-composant-bipolaire">5. La "Partie Action" de l'Utilisateur : Un Composant Bipolaire </h2>
+<p>La notion d' "Action" est souvent mal comprise dans les systèmes d'information. Dans le cadre théorique et pratique d'OPALE, la "Partie Action" se définit sous un double prisme : l'<strong>Angle de l'Interface (l'Expérience Utilisateur)</strong> et l'<strong>Angle de la Gouvernance (l'Audit interne)</strong>.</p>
+<h3 id="51-langle-de-linterface-utilisateur-angle-ui">5.1. L'Angle de l'Interface Utilisateur (Angle UI) </h3>
+<p>Du point de vue de l'utilisateur, l'action est l'interaction directe et palpable avec le portail. C'est la promesse de valeur d'OPALE :</p>
+<ul>
+<li><strong>L'Action de Lancement (Le Clic Pivot) :</strong> C'est le cœur du réacteur. Un clic sur une "Card" d'application déclenche une cascade d'événements réseau.</li>
+<li><strong>L'Action de Découverte :</strong> Au travers d'un moteur de recherche intégré et dynamiquement chargé (AJAX potentiel), l'utilisateur tape le nom de l'outil dont il a besoin. Le système filtre en temps réel, optimisant drastiquement le temps de recherche (Time-to-Value).</li>
+<li><strong>Les Micro-Interactions :</strong> Modification de profil, personnalisation du thème, mises à jour des préférences. Ces actions constituent le vernis ergonomique rendant l'interface engageante.</li>
+</ul>
+<h3 id="52-langle-de-laudit--le-cœur-de-la-conformité-angle-audit">5.2. L'Angle de l'Audit : Le Cœur de la Conformité (Angle Audit) </h3>
+<p>Pour la DSI et pour la pertinence algorithmique de ce mémoire, une Action n'est pertinente que si elle est tracée. Le paradigme d'OPALE repose sur la retranscription de chaque action <em>Humaine</em> en une action <em>Logicielle (Objet <code>LogActivite</code>)</em>.</p>
+<p>Lorsqu'un visiteur accomplit une action asynchrone ou synchrone :</p>
+<ol>
+<li><strong>Captation :</strong> Le middleware ou la vue intercepte l'intention de l'utilisateur (connexion réussie, accès à un logiciel, saisie de mot de passe erroné, tentative de fraude 403).</li>
+<li><strong>Transformation :</strong> Le système de journalisation transforme cet événement immatériel en la création d'un objet en base de données.</li>
+<li><strong>Scellement :</strong> Cet objet reçoit un Horodatage (Timestamp universel non falsifiable).</li>
+</ol>
+<p>C'est cet angle qui transforme un simple portail de liens en une armure de gouvernance pour l'ART.</p>
+<hr>
+<h2 id="6-guide-daudit-sécurité-et-traçabilité-granulaire">6. Guide d'Audit, Sécurité et Traçabilité Granulaire </h2>
+<p>Un projet de rang "Master" ne peut se contenter d'afficher des données. Il doit assurer l'intégrité et l'investigation des ressources. Le module de Logs d'OPALE est conçu comme une sentinelle silencieuse.</p>
+<h3 id="61-modélisation-de-la-donnée-daudit">6.1. Modélisation de la Donnée d'Audit </h3>
+<p>La classe <code>LogActivite</code> a été désignée avec un soin méticuleux pour prévenir l'obsolescence :</p>
+<ul>
+<li><strong>Adresse IP (<code>GenericIPAddressField</code>) :</strong> Pourquoi est-ce vital ? En stockant systématiquement l'empreinte IP de la requête HTTP entrante, OPALE permet à l'équipe Sécurité d'identifier rapidement les attaques de type "Brute Force" ou de détecter une géolocalisation suspecte (Exemple : si une connexion légitime provient des locaux de l'ART et qu'une minute plus tard, une action avec le même compte est déclenchée depuis une IP étrangère).</li>
+<li><strong>Champ Détails Dynamique (<code>JSONField</code>) :</strong> C'est une innovation architecturale cruciale. Traditionnellement, les bases de données SQL sont rigides. En utilisant un champ JSON, OPALE s'offre une flexibilité infinie. Le log d'une erreur 500 n'a pas les mêmes propriétés que le log d'un "Changement de Mot de passe". Le <code>JSONField</code> permet de stocker sous forme de dictionnaire non structuré toutes les métadonnées (Headers, User-Agent navigateur, paramètres de la requête), facilitant ainsi le Machine Learning et d'éventuelles enquêtes d'intrusion dans le futur.</li>
+</ul>
+<h3 id="62-importance-de-la-traçabilité-analyse-critique-pour-le-jury">6.2. Importance de la Traçabilité (Analyse Critique pour le Jury) </h3>
+<p>La traçabilité n'est pas une simple fonctionnalité, c'est la <strong>réponse technologique à une exigence juridique et organisationnelle</strong>. Pour l'ART, qui manipule potentiellement des données stratégiques, l'incapacité à répondre à la question "Qui a accédé à quelle donnée, depuis quel poste, à quelle heure ?" constitue une faute lourde.<br>
+OPALE résout cette équation. En centralisant les lancements, il offre aux auditeurs une visibilité absolue sur les flux, et ce, de manière totalement agnostique des technologies utilisées par les applications cibles (qu'elles soient en Java, PHP ou NodeJs).</p>
+<hr>
+<h2 id="7-faq-structurée-et-anticipation-des-questions-du-jury">7. FAQ Structurée et Anticipation des Questions du Jury </h2>
+<p>L'art de la soutenance de Master réside dans l'anticipation. Ce système ayant été conçu avec ambition, il s'expose légitimement aux interrogations pointues du panel professoral et professionnel. Voici l'exégèse des questions clés.</p>
+<h3 id="q1--pourquoi-avoir-développé-ce-portail-entièrement-plutôt-que-dimplanter-une-solution-sso-monolithique-standardisée-comme-keycloak-ou-okta-">Q1 : "Pourquoi avoir développé ce portail entièrement plutôt que d'implanter une solution SSO monolithique standardisée comme Keycloak ou Okta ?" </h3>
+<p><strong>Réponse Stratégique de l'Architecte :</strong><br>
+"Bien que Keycloak soit le standard de facto de l'industrie pour la gestion d'identité (IAM), son implémentation aurait été inadaptée au contexte précis de l'ART.<br>
+Premièrement, la "Dette d'Organisation" : les 200 applications de l'ART ne sont pas toutes compatibles OIDC (OpenID Connect) ou SAML. Un SSO classique aurait requis de modifier le code de chaque vieille application.<br>
+Deuxièmement, l'Objectif : OPALE n'est pas qu'un fournisseur d'identité, c'est un <strong>Portail Fédérateur</strong>. Keycloak n'offre pas intrinsèquement une interface utilisateur personnalisable, organisée par Direction, et assortie de tableaux de bord ou de barres de recherches.<br>
+C'est pour cela qu'OPALE est un choix d'<strong>agilité sur-mesure</strong>, minimisant le coût d'infrastructure tout en répondant exactement à l'organigramme de notre organisation client."</p>
+<h3 id="q2--comment-le-système-opale-réagit-il-au-départ-brutal-dun-agent-">Q2 : "Comment le système OPALE réagit-il au départ brutal d'un agent ?" </h3>
+<p><strong>Réponse Sécuritaire :</strong><br>
+"C'est la démonstration même de l'avantage de la centralisation. Lors du départ d'un agent (Offboarding), l'administrateur n'a qu'à opérer <strong>une seule action</strong> dans OPALE : désactiver ("Soft Delete" ou statut <code>actif=False</code>) le profil de l'agent.<br>
+À l'instant T de cette désactivation de la session, l'agent perd immédiatement son accès au portail. Étant donné qu'OPALE opère un contrôle d'étanchéité serveur lors du lancement (cf. Diagramme de Séquence), la propagation est instantanée pour l'ensemble des catalogues liés. S'il tente de refresh même avec l'URL en cache, le mur de sécurité OPALE soulèvera une exception HTTP 403, rendant la procédure de départ instantanée et sécurisée sans avoir à contacter unitairement 50 administrateurs d'applications."</p>
+<h3 id="q3--le-catalogue-de-lart-est-évalué-à-plus-de-200-applications-comment-justifier-lévolutivité-scalability-de-la-plateforme-face-à-une-telle-volumétrie-">Q3 : "Le catalogue de l'ART est évalué à plus de 200 applications, comment justifier l'évolutivité (Scalability) de la plateforme face à une telle volumétrie ?" </h3>
+<p><strong>Réponse Technique et Performance :</strong><br>
+"Une volumétrie de 200 à 500 applications répertoriées n'est nullement un goulot d'étranglement pour un Framework mature comme Django couplé à une base de données PostgreSQL.<br>
+La stratégie d'évolutivité a été pensée dès la modélisation à travers les relations SQL. L'utilisation intelligente du <strong>QuerySet Engine de Django (Lazy Loading et Select Related)</strong> permet que la base de données ne soit interrogée que lors de l'exécution ultime de l'algorithme d'intersection. Les requêtes de lecture complexes sont optimisables par de l'indexation algorithmique (Index B-Tree sur les identifiants) et par la mise en place à terme d'un cache serveur partagé de type Redis. Ainsi, le système gère aisément l'expansion verticale (plus d'applications) et l'expansion horizontale (plus de milliers de connexions parallèles)."</p>
+<hr>
+<hr>
+<h2 id="8-annexe--glossaire-et-liste-des-abréviations">8. Annexe : Glossaire et Liste des Abréviations </h2>
+<p>Afin de faciliter la lecture aux profils moins techniques ou aux évaluateurs académiques souhaitant s'imprégner du vocabulaire de l'architecture logicielle, voici les définitions des termes employés dans ce mémoire.</p>
+<h3 id="abréviations-courantes">Abréviations Courantes </h3>
+<ul>
+<li><strong>ART :</strong> Agence de Régulation des Télécommunications (L'entité cliente, contexte du projet).</li>
+<li><strong>DSI :</strong> Direction des Systèmes d'Information. L'entité garante de la sécurité et du bon fonctionnement numérique de l'ART.</li>
+<li><strong>RBAC (Role-Based Access Control) :</strong> <em>Contrôle d'Accès Basé sur les Rôles</em>. Méthode algorithmique où les droits d'un utilisateur sont déduits en fonction de sa position hiérarchique ou de son service, plutôt que de lui être assignés manuellement un par un.</li>
+<li><strong>SSO (Single Sign-On) :</strong> <em>Authentification Unique</em>. Technologie permettant à un utilisateur de n'entrer qu'une seule fois son mot de passe pour accéder à une multitude de logiciels de travail.</li>
+<li><strong>UML (Unified Modeling Language) :</strong> <em>Langage de Modélisation Unifié</em>. Schémas standardisés utilisés mondialement pour dessiner l'architecture d'un logiciel avant de coder.</li>
+<li><strong>ORM (Object-Relational Mapping) :</strong> Technique de programmation permettant de questionner la base de données en utilisant du code moderne (orienté objet) plutôt que d'écrire des requêtes SQL complexes à la main.</li>
+<li><strong>JSON (JavaScript Object Notation) :</strong> Format de texte très léger, devenu la norme sur le web pour stocker ou échanger des informations entre des machines.</li>
+<li><strong>IAM (Identity and Access Management) :</strong> <em>Gestion des Identités et des Accès</em>. Processus ou outil informatique gérant qui est qui, et qui a le droit de faire quoi au sein de l'entreprise.</li>
+<li><strong>ACID :</strong> Acronyme définissant les 4 grands principes garantissant la fiabilité des transactions d'une base de données : <em>Atomicité, Cohérence, Isolation, Durabilité</em>.</li>
+</ul>
+<h3 id="terminologie-technique--conceptuelle">Terminologie Technique &amp; Conceptuelle </h3>
+<ul>
+<li><strong>Dette Technique :</strong> C'est le coût supplémentaire qu'une entreprise ou une DSI va payer demain par manque d'anticipation ou de mise aux normes d'outils anciens aujourd'hui. Dans le contexte de l'ART, cela fait référence à la constellation d'outils hétérogènes.</li>
+<li><strong>Étanchéité (Sécuritaire) :</strong> Principe interdisant le contournement des défenses d'une application. Une étanchéité est absolue quand un utilisateur tentant de forcer l'accès par une URL n'obtient rien de plus qu'un refus tracé.</li>
+<li><strong>Monolithe Modulaire :</strong> Un unique gros bloc de code logiciel (un monolithe) qui est proprement divisé en compartiments à l'intérieur (modulaire), contrairement aux "microservices" qui sont des morceaux de code totalement dispersés physiquement sur plusieurs serveurs.</li>
+<li><strong>Single Pane of Glass (Vitre Unique) :</strong> Expression désignant l'intégration de différents services disparates au sein d'une seule interface utilisateur centralisée.</li>
+<li><strong>Traçabilité Granulaire :</strong> Capacité d'un système à ne pas juste enregistrer "l'Agent A a utilisé l'outil", mais de conserver l'action au grain le plus fin : "l'Agent A, avec telle adresse IP, à 14h02, a cliqué sur ce bouton précis mais l'accès lui a été refusé".</li>
+<li><strong>Shadow IT :</strong> Logiciels ou outils utilisés par les employés d'une entreprise à des fins professionnelles, mais sans l'approbation formelle de la Direction Informatique, créant des failles de sécurité.</li>
+<li><strong>Fail-safe (Conception Anti-Échec) :</strong> Logique de programmation où le système, en cas de doute, d'erreur imprévue ou d'hésitation sur un droit, optera toujours pour l'action la plus sécuritaire (bloquer l'accès) par défaut.</li>
+<li><strong>Black-box (Boîte Noire) :</strong> Fait référence ici au module d’Audit. Un endroit ultra-sécurisé du système enregistrant le flux de tout ce qui s'y passe mais qu'on ne consulte qu'en cas d'enquête.</li>
+</ul>
+<hr>
+<h2 id="9-annexe--structure-du-code-et-guide-de-reprise-handover">9. Annexe : Structure du Code et Guide de Reprise (Handover) </h2>
+<p>Afin d'assurer la pérennité du projet et de faciliter sa reprise (notamment par d'autres développeurs ou lors de la soutenance), voici la cartographie du code source de l'application OPALE (développée sous Django). Cette section sert de boussole pour naviguer dans l'architecture matérielle du projet.</p>
+<h3 id="91-larborescence-du-projet-django">9.1. L'Arborescence du Projet Django </h3>
+<p>Le projet suit la structure standard et modulaire de Django, ce qui garantit que tout développeur connaissant le framework puisse s'y repérer en quelques minutes.</p>
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>opale_project/
+│
+├── core_app/                   # L'application cœur gérant les entités métiers
+│   ├── models.py               # Contient les classes (Utilisateur, Direction, Application...)
+│   ├── views.py                # La logique de contrôle (Affichage Dashboard, Lancement App)
+│   ├── urls.py                 # Le routeur (Associe une adresse web à une fonction de la vue)
+│   ├── admin.py                # Configuration de l'interface d'administration Django
+│   └── signals.py              # Les "écouteurs" d'événements (Génération automatique des Logs)
+│
+├── templates/                  # L'interface utilisateur (Le "T" de l'architecture MVT)
+│   ├── base.html               # Le squelette HTML commun (Menu latéral, en-tête)
+│   ├── dashboard.html          # La page affichant les applications autorisées
+│   └── login.html              # La page d'authentification
+│
+├── static/                     # Les ressources figées
+│   ├── css/                    # Feuilles de styles (Design, Glassmorphism)
+│   ├── js/                     # Scripts d'animation ou de recherche AJAX
+│   └── img/                    # Les icônes des applications et logos de l'ART
+│
+└── opale_project/              # Le dossier de configuration globale
+    ├── settings.py             # Les réglages vitaux (Base de données, Mots de passe, Langue)
+    └── asgi.py / wsgi.py       # Les points d'entrée pour le déploiement sur serveur
+</code></pre><h3 id="92-les-fichiers-clés-à-maîtriser">9.2. Les Fichiers Clés à Maîtriser </h3>
+<p>Pour reprendre le projet, il faut se concentrer sur l'interaction entre ces trois fichiers de l'application <code>core_app</code> :</p>
+<p><strong>A. <code>models.py</code> (La Base de données en Python)</strong><br>
+C'est ici que le diagramme de classes UML a pris vie. C'est le fichier le plus précieux.</p>
+<ul>
+<li>On y trouve la définition de <code>DirectionApplication</code>. Si l'ART demande demain d'imposer un "Date de fin de validité" à un accès, c'est dans ce fichier qu'il faudra ajouter la colonne <code>date_fin = models.DateField(null=True)</code>.</li>
+</ul>
+<p><strong>B. <code>views.py</code> (Le Cerveau Opérationnel)</strong><br>
+C'est la tour de contrôle. La fonction la plus vitale est celle chargée de construire le Dashboard.</p>
+<ul>
+<li><em>Logique à comprendre :</em> La vue récupère d'abord l'utilisateur connecté (<code>request.user</code>), puis elle va interroger la base via l'ORM pour ne renvoyer à l'écran que ce qui est autorisé.</li>
+<li><em>Code d'Étanchéité :</em> La fonction chargée du "lancement" d'une application vérifiera toujours par un <code>get_object_or_404()</code> recoupé avec la direction de l'utilisateur pour éviter les intrusions.</li>
+</ul>
+<p><strong>C. <code>signals.py</code> (Le Traceur Silencieux)</strong><br>
+Pour éviter de polluer <code>views.py</code> avec des dizaines de lignes de création de logs, OPALE utilise les "Signals" natifs de Django.</p>
+<ul>
+<li><em>Comment ça marche ?</em> Ce fichier guette des actions. Par exemple, après la sauvegarde d'un modèle (signal <code>post_save</code>), un bout de code va automatiquement s'exécuter pour écrire une ligne dans <code>LogActivite</code>. Celui qui reprend le code doit savoir que l'audit fonctionne de manière autonome en arrière-plan.</li>
+</ul>
+<h3 id="93-bonnes-pratiques-pour-lévolution-du-code">9.3. Bonnes Pratiques pour l'Évolution du Code </h3>
+<p>Si tu dois modifier le projet après la soutenance, respecte ces règles d'or (le "Zero-Mock Protocol" de l'équipe) :</p>
+<ol>
+<li><strong>Migrations (Ne jamais toucher la base à la main) :</strong> Toute modification dans <code>models.py</code> doit être suivie obligatoirement des commandes <code>python manage.py makemigrations</code> puis <code>python manage.py migrate</code>. Django gère la traduction en SQL à ta place.</li>
+<li><strong>Ne pas "hardcoder" :</strong> Ne jamais écrire l'ID d'une application ou d'une direction "en dur" dans le code Python (ex : <code>if user.direction.id == 3:</code>). Cela casserait l'adaptabilité du logiciel.</li>
+<li><strong>Sécurité Templates :</strong> Dans les fichiers <code>.html</code>, l'affichage de variables dynamiques doit toujours être protégé contre les injections avec les balises sécurisées de Django <code>{{ variable }}</code> et l'utilisation systématique de la balise <code>{% csrf_token %}</code> dans les formulaires.</li>
+</ol>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('div.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('div.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('div.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>

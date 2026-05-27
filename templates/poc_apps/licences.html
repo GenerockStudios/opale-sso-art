@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Licences — ART Cameroun PoC</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="{% static 'js/lucide.min.js' %}"></script>
+</head>
+<body style="background: linear-gradient(135deg, #f0fdf4 0%, #e8f5e9 100%); min-height: 100vh; font-family: 'Inter', sans-serif; margin: 0; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;">
+
+  <!-- Premium Standalone App Bar -->
+  <header class="glass-card" style="padding: 12px 24px; border-radius: var(--radius-lg); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 42px; height: 42px; border-radius: 8px; background: var(--color-secondary); color: white; display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="landmark" style="width: 22px; height: 22px;"></i>
+      </div>
+      <div>
+        <h1 style="font-size: 1.15rem; font-weight: 800; color: var(--color-primary-dark); margin: 0;">Portail Réglementaire ART</h1>
+        <span style="font-size: 0.72rem; color: var(--color-text-muted); font-weight: 600;">Simulation — Registre Officiel de Suivi des Licences & Concessions Télécoms</span>
+      </div>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <div style="text-align: right;">
+        <div style="font-size: 0.84rem; font-weight: 700; color: var(--color-primary-dark);">{{ user_session.first_name }} {{ user_session.last_name }}</div>
+        <div style="font-size: 0.72rem; color: var(--color-text-muted); font-weight: 600;">{{ user_session.direction }} ({{ user_session.role }})</div>
+      </div>
+      <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--color-secondary), #00a35e); color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 0.84rem;">
+        {{ user_session.first_name|first|upper }}{{ user_session.last_name|first|upper }}
+      </div>
+      <a href="{% url 'poc_logout' %}?app=telecom_licences&next={% url 'dashboard' %}" class="btn btn-ghost" style="padding: 6px; border-radius: 50%; min-width: auto; height: auto;" title="Fermer la session applicative">
+        <i data-lucide="log-out" style="width: 18px; height: 18px; color: var(--color-danger);"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Licenses Content Layout -->
+  <div class="licences-dashboard" style="display: flex; flex-direction: column; gap: 30px; flex: 1;">
+    
+    <!-- KPI Metric Cards -->
+    <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+      
+      <div class="glass-card metric-card" style="padding: 24px; display: flex; align-items: center; gap: 20px; border-left: 4px solid var(--color-primary); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);">
+        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 74, 153, 0.08); color: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="users"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--color-text-light); letter-spacing: 0.5px;">Opérateurs Majeurs</div>
+          <div style="font-size: 1.6rem; font-weight: 800; color: var(--color-primary-dark); margin-top: 2px;">4</div>
+        </div>
+      </div>
+      
+      <div class="glass-card metric-card" style="padding: 24px; display: flex; align-items: center; gap: 20px; border-left: 4px solid var(--color-secondary); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);">
+        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 135, 81, 0.08); color: var(--color-secondary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="shield-check"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--color-text-light); letter-spacing: 0.5px;">Licences Actives</div>
+          <div style="font-size: 1.6rem; font-weight: 800; color: var(--color-primary-dark); margin-top: 2px;">3 <span style="font-size: 0.8rem; font-weight: 500; color: var(--color-text-muted);">/ 4</span></div>
+        </div>
+      </div>
+      
+      <div class="glass-card metric-card" style="padding: 24px; display: flex; align-items: center; gap: 20px; border-left: 4px solid var(--color-warning); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);">
+        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(245, 124, 0, 0.08); color: var(--color-warning); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="clock"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--color-text-light); letter-spacing: 0.5px;">En Réévaluation</div>
+          <div style="font-size: 1.6rem; font-weight: 800; color: var(--color-primary-dark); margin-top: 2px;">1</div>
+        </div>
+      </div>
+      
+      <div class="glass-card metric-card" style="padding: 24px; display: flex; align-items: center; gap: 20px; border-left: 4px solid var(--color-purple); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);">
+        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(106, 27, 154, 0.08); color: var(--color-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="coins"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--color-text-light); letter-spacing: 0.5px;">Redevance Annuelle Globale</div>
+          <div style="font-size: 1.6rem; font-weight: 800; color: var(--color-primary-dark); margin-top: 2px;">13.0 Mrd <span style="font-size: 0.75rem; font-weight: 600; color: var(--color-text-muted);">FCFA</span></div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Licenses Data Table Section -->
+    <div class="glass-card table-section" style="padding: 30px; border-radius: var(--radius-lg); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--color-primary-dark);">Registre des Concessions et Titres d'Exploitation</h2>
+          <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 2px;">Base de données officielle des opérateurs télécoms assujettis à la régulation de l'ART.</p>
+        </div>
+        
+        <button class="btn btn-secondary" style="border-radius: 20px; font-size: 0.8rem; font-weight: 700; gap: 6px;">
+          <i data-lucide="download" style="width: 14px; height: 14px;"></i> Exporter au format PDF
+        </button>
+      </div>
+
+      <!-- Data Table -->
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--color-border); color: var(--color-text-muted); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              <th style="padding: 12px 16px;">Opérateur</th>
+              <th style="padding: 12px 16px;">Type de Titre</th>
+              <th style="padding: 12px 16px;">Date d'Octroi</th>
+              <th style="padding: 12px 16px;">Échéance</th>
+              <th style="padding: 12px 16px;">Statut</th>
+              <th style="padding: 12px 16px; text-align: right;">Redevance Spectre (Annuel)</th>
+              <th style="padding: 12px 16px; text-align: center;">Actions</th>
+            </tr>
+          </thead>
+          <tbody style="font-size: 0.86rem; color: var(--color-text-main);">
+            {% for lic in licences %}
+              <tr style="border-bottom: 1px solid var(--color-border); transition: var(--transition-base);" class="table-row">
+                <td style="padding: 16px; font-weight: 700; color: var(--color-primary-dark);">{{ lic.operateur }}</td>
+                <td style="padding: 16px;">{{ lic.type }}</td>
+                <td style="padding: 16px; color: var(--color-text-muted);">{{ lic.date_octroi }}</td>
+                <td style="padding: 16px; color: var(--color-text-muted);">{{ lic.expire }}</td>
+                <td style="padding: 16px;">
+                  <span class="badge" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    padding: 4px 10px;
+                    border-radius: 12px;
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    background: {% if lic.color == 'success' %}var(--color-success-light){% else %}var(--color-warning-light){% endif %};
+                    color: {% if lic.color == 'success' %}var(--color-success){% else %}var(--color-warning){% endif %};
+                  ">
+                    <span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span>
+                    {{ lic.statut }}
+                  </span>
+                </td>
+                <td style="padding: 16px; text-align: right; font-weight: 700; color: var(--color-primary);">{{ lic.redevance }}</td>
+                <td style="padding: 16px; text-align: center;">
+                  <div style="display: flex; gap: 8px; justify-content: center;">
+                    <button class="btn btn-ghost" style="padding: 6px; border-radius: 50%; min-width: auto; height: auto;" title="Consulter l'historique">
+                      <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button class="btn btn-ghost" style="padding: 6px; border-radius: 50%; min-width: auto; height: auto;" title="Émettre un audit financier">
+                      <i data-lucide="file-text" style="width: 14px; height: 14px;"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Regulatory Notes / Cameroon context -->
+    <div class="glass-card" style="padding: 30px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(212,237,227,0.4) 100%); backdrop-filter: blur(10px); display: flex; align-items: flex-start; gap: 20px; border-left: 4px solid var(--color-secondary);">
+      <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-success-light); color: var(--color-success); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <i data-lucide="info" style="width: 24px; height: 24px;"></i>
+      </div>
+      <div>
+        <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 8px;">Conformité Réglementaire (Loi N° 2010/013 du 21 décembre 2010 régissant les télécommunications au Cameroun)</h3>
+        <p style="font-size: 0.84rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">
+          Conformément à la réglementation camerounaise, les concessions sont octroyées pour une durée déterminée et font l'objet d'audits périodiques. Les opérateurs sont tenus de s'acquitter annuellement de la redevance d'utilisation du spectre radioélectrique sous peine de pénalités et d'une réévaluation de leur titre d'exploitation (cas en cours pour Nexttel).
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hover transition styles -->
+  <style>
+    .table-row:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+
+  <!-- Init Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <!-- Bouton flottant de la Console SSO & Active Directory -->
+  {% include 'poc_apps/sso_debug_console.html' with app_name=app_name user_session=user_session %}
+</body>
+</html>

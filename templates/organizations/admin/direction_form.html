@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }} — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="{% if action == 'Créer' %}plus-circle{% else %}pencil{% endif %}" class="page-title-icon"></i> {{ page_title }}</h1>
+        <p class="page-subtitle">{% if action == 'Créer' %}Ajouter une nouvelle structure organisationnelle{% else %}Modifier les informations de la direction{% endif %}</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'gestion_directions_list' %}" class="btn btn-ghost">
+            <i data-lucide="arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+</div>
+
+<div class="form-page-layout">
+    <div class="glass-card form-card">
+        <div class="form-card-header">
+            <div class="form-card-icon">
+                <i data-lucide="building-2"></i>
+            </div>
+            <div>
+                <h2 class="form-card-title">Informations de la structure</h2>
+                <p class="form-card-subtitle">Définissez le nom, le triglyphe et la description de l'organisation.</p>
+            </div>
+        </div>
+
+        <form method="post" class="opale-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-errors">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="form-row-2">
+                <div class="form-group {% if form.nom.errors %}has-error{% endif %}">
+                    <label class="form-label">{{ form.nom.label }}</label>
+                    {{ form.nom }}
+                    {% if form.nom.errors %}<span class="form-error-msg">{{ form.nom.errors|join:", " }}</span>{% endif %}
+                </div>
+                <div class="form-group {% if form.code.errors %}has-error{% endif %}">
+                    <label class="form-label">{{ form.code.label }}</label>
+                    {{ form.code }}
+                    {% if form.code.errors %}<span class="form-error-msg">{{ form.code.errors|join:", " }}</span>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.description.errors %}has-error{% endif %}">
+                <label class="form-label">{{ form.description.label }}</label>
+                {{ form.description }}
+                {% if form.description.errors %}<span class="form-error-msg">{{ form.description.errors|join:", " }}</span>{% endif %}
+            </div>
+
+            <div class="form-actions form-actions--spread" style="margin-top:2rem;">
+                <a href="{% url 'gestion_directions_list' %}" class="btn btn-ghost">Annuler</a>
+                <button type="submit" class="btn btn-primary">
+                    <i data-lucide="save"></i> {{ action }} la direction
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

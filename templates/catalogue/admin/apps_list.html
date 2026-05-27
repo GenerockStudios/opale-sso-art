@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestion des Applications — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="layout-grid" class="page-title-icon"></i> Gestion des Applications</h1>
+        <p class="page-subtitle">{{ apps|length }} application{{ apps|length|pluralize }} dans le catalogue</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'gestion_apps_create' %}" class="btn btn-primary">
+            <i data-lucide="plus-circle"></i> Nouvelle application
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}"><i data-lucide="{% if 'success' in message.tags %}check-circle{% else %}alert-circle{% endif %}"></i> {{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Search -->
+<div class="glass-card filter-panel">
+    <form method="get" class="filter-form">
+        <div class="filter-group" style="flex:1;">
+            <label class="form-label"><i data-lucide="search"></i> Recherche</label>
+            <input type="text" name="q" value="{{ query }}" class="form-input" placeholder="Nom de l'application…">
+        </div>
+        <div class="filter-actions">
+            <button type="submit" class="btn btn-primary"><i data-lucide="search"></i> Filtrer</button>
+            {% if query %}<a href="{% url 'gestion_apps_list' %}" class="btn btn-ghost"><i data-lucide="x"></i> Effacer</a>{% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- Apps Grid -->
+{% if apps %}
+<div class="apps-admin-grid">
+    {% for app in apps %}
+    <div class="app-admin-card glass-card {% if not app.est_actif %}app-admin-card--inactive{% endif %}">
+        <div class="app-admin-card-header">
+            <div class="app-admin-icon">
+                <i data-lucide="{{ app.icone_name|default:'box' }}"></i>
+            </div>
+            <div class="app-admin-status">
+                {% if app.est_actif %}
+                    <span class="status-pill status-pill--active">Active</span>
+                {% else %}
+                    <span class="status-pill status-pill--inactive">Inactive</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="app-admin-body">
+            <h3 class="app-admin-name">{{ app.nom }}</h3>
+            <p class="app-admin-url">
+                <i data-lucide="link-2" style="width:12px;height:12px;"></i>
+                <a href="{{ app.url_acces }}" target="_blank" rel="noopener noreferrer">{{ app.url_acces }}</a>
+            </p>
+            {% if app.description %}
+                <p class="app-admin-desc">{{ app.description|truncatechars:80 }}</p>
+            {% endif %}
+
+            <div class="app-admin-directions">
+                <span class="dir-label"><i data-lucide="building-2" style="width:13px;height:13px;"></i> Directions :</span>
+                {% for dir in app.directions_autorisees.all %}
+                    <span class="dir-code-badge">{{ dir.code|default:dir.nom }}</span>
+                {% empty %}
+                    <span class="text-muted" style="font-size:0.78rem;">Aucune</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="app-admin-actions">
+            <a href="{% url 'gestion_apps_edit' app.id %}" class="btn btn-secondary" style="flex:1; justify-content:center;">
+                <i data-lucide="pencil"></i> Modifier
+            </a>
+            <form method="post" action="{% url 'gestion_apps_toggle' app.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-action {% if app.est_actif %}btn-action--warn{% else %}btn-action--success{% endif %}" title="{% if app.est_actif %}Désactiver{% else %}Activer{% endif %}">
+                    <i data-lucide="{% if app.est_actif %}pause-circle{% else %}play-circle{% endif %}"></i>
+                </button>
+            </form>
+            <a href="{% url 'gestion_apps_delete' app.id %}" class="btn-action btn-action--danger" title="Supprimer">
+                <i data-lucide="trash-2"></i>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state glass-card">
+    <i data-lucide="package-x" class="empty-icon"></i>
+    <h3>Aucune application trouvée</h3>
+    <p>Le catalogue est vide ou votre recherche ne correspond à aucun résultat.</p>
+    <a href="{% url 'gestion_apps_create' %}" class="btn btn-primary"><i data-lucide="plus-circle"></i> Créer une application</a>
+</div>
+{% endif %}
+{% endblock %}

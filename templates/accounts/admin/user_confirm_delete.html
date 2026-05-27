@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer {{ user_obj.username }} — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="trash-2" class="page-title-icon" style="color:var(--color-danger);"></i> Confirmer la suppression</h1>
+    </div>
+</div>
+
+<div class="confirm-delete-wrapper">
+    <div class="glass-card confirm-delete-card">
+        <div class="confirm-delete-icon">
+            <i data-lucide="alert-triangle"></i>
+        </div>
+        <h2>Supprimer le compte de <strong>{{ user_obj.get_full_name|default:user_obj.username }}</strong> ?</h2>
+        <p class="confirm-delete-desc">
+            Cette action est <strong>irréversible</strong>. Toutes les données associées à cet utilisateur
+            (identifiant : <code>{{ user_obj.username }}</code>) seront définitivement supprimées.
+        </p>
+        <div class="confirm-delete-meta">
+            <span><i data-lucide="building-2"></i> {{ user_obj.direction.nom|default:"Aucune direction" }}</span>
+            <span><i data-lucide="shield"></i> {{ user_obj.get_role_display }}</span>
+            <span><i data-lucide="mail"></i> {{ user_obj.email|default:"—" }}</span>
+        </div>
+        <div class="confirm-delete-actions">
+            <a href="{% url 'gestion_users_list' %}" class="btn btn-ghost">
+                <i data-lucide="arrow-left"></i> Annuler
+            </a>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    <i data-lucide="trash-2"></i> Supprimer définitivement
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

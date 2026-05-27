@@ -1,0 +1,41 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django
+db.sqlite3
+*.log
+local_settings.py
+
+# Docker local data
+ldap_data/
+ldap_config/
+postgres_data/
+
+# IDE settings
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Agentic / AI brain and compact logs
+.gemini/
+brain/
+scratch/
+test_auth_debug.py
+diag_ldap.py

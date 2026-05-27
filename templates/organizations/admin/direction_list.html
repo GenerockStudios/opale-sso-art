@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestion des Directions — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="building-2" class="page-title-icon"></i> Gestion des Directions</h1>
+        <p class="page-subtitle">{{ directions|length }} direction{{ directions|length|pluralize }} enregistrée{{ directions|length|pluralize }}</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'gestion_directions_create' %}" class="btn btn-primary">
+            <i data-lucide="plus-circle"></i> Nouvelle Direction
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}"><i data-lucide="{% if 'success' in message.tags %}check-circle{% else %}alert-circle{% endif %}"></i> {{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Search -->
+<div class="glass-card filter-panel">
+    <form method="get" class="filter-form">
+        <div class="filter-group" style="flex:1;">
+            <label class="form-label"><i data-lucide="search"></i> Recherche</label>
+            <input type="text" name="q" value="{{ query }}" class="form-input" placeholder="Nom ou code de la direction…">
+        </div>
+        <div class="filter-actions">
+            <button type="submit" class="btn btn-primary"><i data-lucide="search"></i> Filtrer</button>
+            {% if query %}<a href="{% url 'gestion_directions_list' %}" class="btn btn-ghost"><i data-lucide="x"></i> Effacer</a>{% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- Directions List (Table style for clarity) -->
+<div class="glass-card table-card">
+    <div class="table-responsive">
+        <table class="opale-table">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Nom de la Direction</th>
+                    <th>Description</th>
+                    <th style="text-align:right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for direction in directions %}
+                <tr>
+                    <td><span class="dir-code-badge">{{ direction.code|default:"---" }}</span></td>
+                    <td><strong>{{ direction.nom }}</strong></td>
+                    <td class="text-muted">{{ direction.description|truncatechars:100|default:"---" }}</td>
+                    <td style="text-align:right;">
+                        <div class="table-actions">
+                            <a href="{% url 'gestion_directions_edit' direction.id %}" class="btn-action" title="Modifier">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <a href="{% url 'gestion_directions_delete' direction.id %}" class="btn-action btn-action--danger" title="Supprimer">
+                                <i data-lucide="trash-2"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="empty-row">
+                        <i data-lucide="help-circle"></i> Aucun résultat trouvé.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

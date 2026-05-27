@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}Monitoring Audit — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="activity" class="page-title-icon"></i> Monitoring Audit</h1>
+        <p class="page-subtitle">Traçabilité des accès et actions utilisateurs</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'audit_matrix' %}" class="btn btn-secondary">
+            <i data-lucide="grid-3x3"></i> Matrice des droits
+        </a>
+    </div>
+</div>
+
+<!-- Stat Cards -->
+<div class="stats-grid">
+    <div class="stat-card glass-card">
+        <div class="stat-icon stat-icon--blue">
+            <i data-lucide="calendar-check"></i>
+        </div>
+        <div class="stat-body">
+            <div class="stat-number">{{ count_today }}</div>
+            <div class="stat-label">Connexions aujourd'hui</div>
+        </div>
+    </div>
+    <div class="stat-card glass-card">
+        <div class="stat-icon stat-icon--green">
+            <i data-lucide="trending-up"></i>
+        </div>
+        <div class="stat-body">
+            <div class="stat-number">{{ count_7d }}</div>
+            <div class="stat-label">7 derniers jours</div>
+        </div>
+    </div>
+    <div class="stat-card glass-card">
+        <div class="stat-icon stat-icon--purple">
+            <i data-lucide="bar-chart-3"></i>
+        </div>
+        <div class="stat-body">
+            <div class="stat-number">{{ count_30d }}</div>
+            <div class="stat-label">30 derniers jours</div>
+        </div>
+    </div>
+    <div class="stat-card glass-card">
+        <div class="stat-icon stat-icon--orange">
+            <i data-lucide="users"></i>
+        </div>
+        <div class="stat-body">
+            <div class="stat-number">{{ recent_users|length }}</div>
+            <div class="stat-label">Utilisateurs actifs (7j)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="glass-card filter-panel">
+    <form method="get" class="filter-form">
+        <div class="filter-group">
+            <label class="form-label"><i data-lucide="user"></i> Utilisateur</label>
+            <input type="text" name="user" value="{{ user_filter }}" class="form-input" placeholder="nom d'utilisateur…">
+        </div>
+        <div class="filter-group">
+            <label class="form-label"><i data-lucide="calendar"></i> Du</label>
+            <input type="date" name="date_from" value="{{ date_from }}" class="form-input">
+        </div>
+        <div class="filter-group">
+            <label class="form-label"><i data-lucide="calendar"></i> Au</label>
+            <input type="date" name="date_to" value="{{ date_to }}" class="form-input">
+        </div>
+        <div class="filter-actions">
+            <button type="submit" class="btn btn-primary">
+                <i data-lucide="search"></i> Filtrer
+            </button>
+            {% if user_filter or date_from or date_to %}
+                <a href="{% url 'audit_logs' %}" class="btn btn-ghost">
+                    <i data-lucide="x"></i> Effacer
+                </a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- Logs Table -->
+<div class="glass-card table-card">
+    <div class="table-header">
+        <span class="table-title">
+            <i data-lucide="list"></i>
+            Journal d'activité
+        </span>
+        <span class="table-count">{{ page_obj.paginator.count }} entrée{{ page_obj.paginator.count|pluralize }}</span>
+    </div>
+
+    {% if page_obj %}
+        <div class="table-wrapper">
+            <table class="opale-table">
+                <thead>
+                    <tr>
+                        <th><i data-lucide="clock"></i> Date / Heure</th>
+                        <th><i data-lucide="user"></i> Utilisateur</th>
+                        <th><i data-lucide="zap"></i> Action</th>
+                        <th><i data-lucide="globe"></i> Adresse IP</th>
+                        <th><i data-lucide="info"></i> Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in page_obj %}
+                        <tr class="log-row {% if 'REFUSÉ' in log.action %}log-row--danger{% elif 'Connexion' in log.action %}log-row--success{% endif %}">
+                            <td class="log-date">
+                                <span class="date-main">{{ log.cree_le|date:"d/m/Y" }}</span>
+                                <span class="date-time">{{ log.cree_le|date:"H:i:s" }}</span>
+                            </td>
+                            <td class="log-user">
+                                {% if log.utilisateur %}
+                                    <span class="user-chip">
+                                        <span class="user-avatar-mini">{{ log.utilisateur.username|first|upper }}</span>
+                                        {{ log.utilisateur.username }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-muted">Système</span>
+                                {% endif %}
+                            </td>
+                            <td class="log-action">
+                                <span class="action-text {% if 'REFUSÉ' in log.action %}action--danger{% elif 'Accès' in log.action %}action--info{% endif %}">
+                                    {{ log.action }}
+                                </span>
+                            </td>
+                            <td class="log-ip">
+                                <code>{{ log.ip_address|default:"—" }}</code>
+                            </td>
+                            <td class="log-details">
+                                {% if log.details %}
+                                    <button class="btn-details" onclick="toggleDetails(this)">
+                                        <i data-lucide="chevron-down"></i>
+                                    </button>
+                                    <pre class="details-json hidden">{{ log.details }}</pre>
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}&user={{ user_filter }}&date_from={{ date_from }}&date_to={{ date_to }}" class="page-btn">
+                        <i data-lucide="chevron-left"></i>
+                    </a>
+                {% endif %}
+
+                <span class="page-info">
+                    Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&user={{ user_filter }}&date_from={{ date_from }}&date_to={{ date_to }}" class="page-btn">
+                        <i data-lucide="chevron-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state">
+            <i data-lucide="inbox" class="empty-icon"></i>
+            <h3>Aucun log trouvé</h3>
+            <p>Aucune activité ne correspond aux filtres sélectionnés.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function toggleDetails(btn) {
+        const row = btn.closest('td');
+        const pre = row.querySelector('.details-json');
+        const icon = btn.querySelector('[data-lucide]');
+        pre.classList.toggle('hidden');
+        icon.setAttribute('data-lucide', pre.classList.contains('hidden') ? 'chevron-down' : 'chevron-up');
+        lucide.createIcons();
+    }
+</script>
+{% endblock %}

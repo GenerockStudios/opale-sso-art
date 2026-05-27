@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer {{ app.nom }} — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="trash-2" class="page-title-icon" style="color:var(--color-danger);"></i> Confirmer la suppression</h1>
+    </div>
+</div>
+
+<div class="confirm-delete-wrapper">
+    <div class="glass-card confirm-delete-card">
+        <div class="confirm-delete-icon">
+            <i data-lucide="alert-triangle"></i>
+        </div>
+        <h2>Supprimer l'application <strong>{{ app.nom }}</strong> ?</h2>
+        <p class="confirm-delete-desc">
+            Cette action est <strong>irréversible</strong>. L'application et toutes ses habilitations seront définitivement supprimées du catalogue.
+        </p>
+        <div class="confirm-delete-meta">
+            <span><i data-lucide="link-2"></i> {{ app.url_acces }}</span>
+            <span><i data-lucide="building-2"></i> {{ app.directions_autorisees.count }} direction{{ app.directions_autorisees.count|pluralize }} habilitée{{ app.directions_autorisees.count|pluralize }}</span>
+        </div>
+        <div class="confirm-delete-actions">
+            <a href="{% url 'gestion_apps_list' %}" class="btn btn-ghost">
+                <i data-lucide="arrow-left"></i> Annuler
+            </a>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    <i data-lucide="trash-2"></i> Supprimer définitivement
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

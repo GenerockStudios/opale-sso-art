@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer {{ direction.nom }} — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="trash-2" class="page-title-icon" style="color:var(--color-danger);"></i> Confirmer la suppression</h1>
+    </div>
+</div>
+
+<div class="confirm-delete-wrapper">
+    <div class="glass-card confirm-delete-card">
+        <div class="confirm-delete-icon">
+            <i data-lucide="alert-triangle"></i>
+        </div>
+        <h2>Supprimer la direction <strong>{{ direction.nom }}</strong> ?</h2>
+        <p class="confirm-delete-desc">
+            Cette action est <strong>irréversible</strong>. Les membres rattachés à cette direction pourraient perdre leurs accès si aucune direction de secours n'est configurée.
+        </p>
+        <div class="confirm-delete-meta">
+            <span><i data-lucide="building-2"></i> Code : {{ direction.code|default:"Aucun" }}</span>
+            <span><i data-lucide="calendar"></i> Créée le : {{ direction.created_at|date:"d/m/Y" }}</span>
+        </div>
+        <div class="confirm-delete-actions">
+            <a href="{% url 'gestion_directions_list' %}" class="btn btn-ghost">
+                <i data-lucide="arrow-left"></i> Annuler
+            </a>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    <i data-lucide="trash-2"></i> Supprimer définitivement
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

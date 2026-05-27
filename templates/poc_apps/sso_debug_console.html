@@ -1,0 +1,565 @@
+<!-- =======================================================================
+     COMPOSANT SSO DEBUG CONSOLE (BOUTON FLOTTANT & PANEL GLASSMORPHIC SOMBRE)
+     ======================================================================= -->
+
+<!-- Floating Action Button (FAB) -->
+<button class="sso-fab-btn" id="sso-fab" title="Ouvrir la Console SSO & Active Directory" aria-label="Ouvrir la Console SSO">
+  <div class="radar-pulse"></div>
+  <i data-lucide="terminal"></i>
+  <span class="fab-badge">SSO</span>
+</button>
+
+<!-- Console Panel -->
+<div class="sso-console-panel" id="sso-console">
+  <!-- Console Header -->
+  <div class="sso-console-header">
+    <div class="sso-header-title">
+      <i data-lucide="shield-check" class="shield-icon"></i>
+      <span>Console SSO & Active Directory (PoC)</span>
+    </div>
+    <button class="sso-close-btn" id="sso-console-close" aria-label="Fermer la console">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
+
+  <!-- Console Content -->
+  <div class="sso-console-body">
+    <!-- Diagnostics Overview -->
+    <div class="diagnostics-summary">
+      <div class="diag-item">
+        <span class="diag-label">Application cible :</span>
+        <span class="diag-val text-accent">{{ app_name }}</span>
+      </div>
+      <div class="diag-item">
+        <span class="diag-label">Utilisateur AD :</span>
+        <span class="diag-val text-success">{{ user_session.first_name }} {{ user_session.last_name }} ({{ user_session.username }})</span>
+      </div>
+      <div class="diag-item">
+        <span class="diag-label">Direction (AD) :</span>
+        <span class="diag-val">{{ user_session.direction }}</span>
+      </div>
+      <div class="diag-item">
+        <span class="diag-label">Rôle attribué :</span>
+        <span class="diag-val badge-role">{{ user_session.role }}</span>
+      </div>
+    </div>
+
+    <!-- Terminal Screen -->
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">sso_handshake_monitor.log</span>
+      </div>
+      <div class="terminal-body" id="terminal-logs">
+        <!-- Logs will be dynamically injected here with animation -->
+        <div class="terminal-cursor-line">
+          <span class="prompt">art-sso:~$</span> <span class="cursor">_</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Console Footer -->
+  <div class="sso-console-footer">
+    <a href="{% url 'poc_logout' %}?app={{ app_name }}&next={% url request.resolver_match.url_name %}" class="btn-sso-action btn-replay">
+      <i data-lucide="refresh-cw"></i> Rejouer la cinématique SSO
+    </a>
+    <a href="{% url 'dashboard' %}" class="btn-sso-action btn-portal">
+      <i data-lucide="home"></i> Retour au Portail
+    </a>
+  </div>
+</div>
+
+<!-- Styles CSS spécifiques au bouton flottant et à la console SSO -->
+<style>
+  /* --- FAB BUTTON --- */
+  .sso-fab-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #38bdf8;
+    border: 2px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 8px 32px rgba(56, 189, 248, 0.25), inset 0 2px 8px rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sso-fab-btn:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(56, 189, 248, 0.4), inset 0 2px 12px rgba(255,255,255,0.2);
+    border-color: #38bdf8;
+    color: #fff;
+  }
+
+  .sso-fab-btn svg {
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+  }
+
+  /* Pulse Radar Effect */
+  .radar-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.2);
+    z-index: 1;
+    animation: pulseRadar 2s infinite;
+  }
+
+  @keyframes pulseRadar {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  .fab-badge {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    background: #008751;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 6px;
+    border-radius: 10px;
+    border: 1.5px solid #0f172a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  /* --- CONSOLE PANEL --- */
+  .sso-console-panel {
+    position: fixed;
+    top: 24px;
+    bottom: 24px;
+    right: 24px;
+    width: 460px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(110%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sso-console-panel.open {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* Header */
+  .sso-console-header {
+    background: rgba(30, 41, 59, 0.5);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sso-header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e2e8f0;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .shield-icon {
+    color: #38bdf8;
+    width: 18px;
+    height: 18px;
+  }
+
+  .sso-close-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .sso-close-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  .sso-close-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Body */
+  .sso-console-body {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+  }
+
+  /* Diagnostics Overview */
+  .diagnostics-summary {
+    background: rgba(30, 41, 59, 0.3);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+
+  .diag-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .diag-label {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .diag-val {
+    color: #f1f5f9;
+    font-weight: 600;
+  }
+
+  .text-accent {
+    color: #38bdf8;
+  }
+
+  .text-success {
+    color: #4ade80;
+  }
+
+  .badge-role {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* Terminal Container */
+  .terminal-container {
+    flex: 1;
+    background: #020617;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: inset 0 4px 20px rgba(0,0,0,0.8);
+    min-height: 250px;
+  }
+
+  .terminal-header {
+    background: #0f172a;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ef4444; }
+  .dot.yellow { background: #eab308; }
+  .dot.green { background: #22c55e; }
+
+  .terminal-title {
+    color: #475569;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.65rem;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  .terminal-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .log-line {
+    animation: fadeInLog 0.2s ease forwards;
+  }
+
+  @keyframes fadeInLog {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .log-time {
+    color: #475569;
+    margin-right: 6px;
+  }
+
+  .log-tag {
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .log-tag.info { color: #38bdf8; }
+  .log-tag.success { color: #4ade80; }
+  .log-tag.warning { color: #f59e0b; }
+  .log-tag.error { color: #f87171; }
+
+  .prompt {
+    color: #4ade80;
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  .cursor {
+    animation: blinkCursor 1s step-end infinite;
+    color: #38bdf8;
+    font-weight: bold;
+  }
+
+  @keyframes blinkCursor {
+    50% { opacity: 0; }
+  }
+
+  /* Footer Actions */
+  .sso-console-footer {
+    padding: 16px 20px;
+    background: rgba(30, 41, 59, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-sso-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .btn-sso-action svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .btn-replay {
+    background: #008751;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 135, 81, 0.25);
+  }
+
+  .btn-replay:hover {
+    background: #00a35e;
+    transform: translateY(-1px);
+  }
+
+  .btn-portal {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-portal:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+
+  /* Mobile adjustment */
+  @media (max-width: 500px) {
+    .sso-console-panel {
+      left: 12px;
+      right: 12px;
+      width: auto;
+    }
+  }
+</style>
+
+<!-- Script JS spécifique pour exécuter et animer la cinématique de logs SSO -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fab = document.getElementById('sso-fab');
+    const consolePanel = document.getElementById('sso-console');
+    const closeBtn = document.getElementById('sso-console-close');
+    const logsContainer = document.getElementById('terminal-logs');
+
+    if (!fab || !consolePanel || !closeBtn) return;
+
+    // Toggle Console open/close
+    fab.addEventListener('click', function() {
+      consolePanel.classList.toggle('open');
+      if (consolePanel.classList.contains('open')) {
+        playHandshakeAnimation();
+      }
+    });
+
+    closeBtn.addEventListener('click', function() {
+      consolePanel.classList.remove('open');
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        consolePanel.classList.remove('open');
+      }
+    });
+
+    // Types of logs to write step-by-step
+    const username = "{{ user_session.username|default:'invite_art' }}";
+    const userFullName = "{{ user_session.first_name }} {{ user_session.last_name }}";
+    const userDir = "{{ user_session.direction }}";
+    const userDirCode = "{{ user_session.direction_code }}";
+    const userRole = "{{ user_session.role }}";
+    const targetApp = "{{ app_name }}";
+
+    function getFormattedTime() {
+      const now = new Date();
+      return now.toTimeString().split(' ')[0];
+    }
+
+    const logSequence = [
+      { type: 'info', text: 'Diagnostic SSO initié...' },
+      { type: 'info', text: `Détection accès : /apps/${targetApp}/` },
+      { type: 'warning', text: 'Vérification session applicative locale...' },
+      { type: 'error', text: 'AUCUNE session applicative locale trouvée.' },
+      { type: 'info', text: 'Session absente -> Redirection automatique vers OPALE Portal (IdP).' },
+      { type: 'info', text: 'Connexion de l\'utilisateur au portail central réussie.' },
+      { type: 'success', text: 'Authentification validée via Active Directory (LDAP).' },
+      { type: 'info', text: 'Génération du jeton cryptographique SSO signé centralement.' },
+      { type: 'info', text: 'Handshake : Réception du jeton SSO à usage unique (valide 60s).' },
+      { type: 'info', text: 'Appel API du Service Provider (PoC) -> /accounts/sso/verify/?token=...' },
+      { type: 'success', text: 'Validation cryptographique de la signature du jeton : RÉUSSIE.' },
+      { type: 'success', text: `Profil AD extrait : ID="${username}", Nom="${userFullName}", Service="${userDir}"` },
+      { type: 'info', text: `Évaluation des habilitations pour ${targetApp}...` },
+      { type: 'success', text: `Contrôle d'accès : [AUTORISÉ] (Direction ${userDirCode} habilitée)` },
+      { type: 'success', text: 'Session applicative locale générée avec succès.' },
+      { type: 'success', text: '=== ACCÈS SÉCURISÉ SSO ACCORDÉ ===' }
+    ];
+
+    let animInProgress = false;
+
+    function playHandshakeAnimation() {
+      if (animInProgress) return;
+      animInProgress = true;
+      
+      // Clear logs first
+      logsContainer.innerHTML = '';
+      
+      let index = 0;
+      
+      function printNextLog() {
+        if (index >= logSequence.length) {
+          // Add back the final command prompt
+          const promptLine = document.createElement('div');
+          promptLine.className = 'terminal-cursor-line';
+          promptLine.innerHTML = `<span class="prompt">art-sso:~$</span> <span class="cursor">_</span>`;
+          logsContainer.appendChild(promptLine);
+          logsContainer.scrollTop = logsContainer.scrollHeight;
+          animInProgress = false;
+          return;
+        }
+
+        const log = logSequence[index];
+        const logLine = document.createElement('div');
+        logLine.className = 'log-line';
+        
+        let tagClass = 'info';
+        let tagText = 'INFO';
+        
+        if (log.type === 'success') {
+          tagClass = 'success';
+          tagText = 'SUCCESS';
+        } else if (log.type === 'warning') {
+          tagClass = 'warning';
+          tagText = 'WARN';
+        } else if (log.type === 'error') {
+          tagClass = 'error';
+          tagText = 'FAIL';
+        }
+
+        logLine.innerHTML = `
+          <span class="log-time">[${getFormattedTime()}]</span>
+          <span class="log-tag ${tagClass}">[${tagText}]</span>
+          <span class="log-text">${log.text}</span>
+        `;
+
+        logsContainer.appendChild(logLine);
+        logsContainer.scrollTop = logsContainer.scrollHeight;
+        
+        index++;
+        
+        // Dynamic timing for realism
+        let delay = 300 + Math.random() * 300;
+        if (log.type === 'success') delay = 500; // highlight success
+        if (log.type === 'error') delay = 400; // highlight error
+        
+        setTimeout(printNextLog, delay);
+      }
+
+      printNextLog();
+    }
+
+    // Auto open and play logs on first load of callback success (optional visual wow)
+    setTimeout(function() {
+      // If we just landed from callback (indicated by the presence of 'token' in the URL, or we can check localStorage)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('token') || document.referrer.includes('/accounts/sso/authorize/')) {
+        consolePanel.classList.add('open');
+        playHandshakeAnimation();
+      }
+    }, 800);
+  });
+</script>

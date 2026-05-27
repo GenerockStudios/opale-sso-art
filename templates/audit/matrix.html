@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Matrice des Droits — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="grid-3x3" class="page-title-icon"></i> Matrice des Droits</h1>
+        <p class="page-subtitle">{{ directions|length }} direction{{ directions|length|pluralize }} · {{ applications|length }} application{{ applications|length|pluralize }}</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'audit_logs' %}" class="btn btn-secondary">
+            <i data-lucide="activity"></i> Logs d'audit
+        </a>
+    </div>
+</div>
+
+<!-- Legend -->
+<div class="matrix-legend glass-card">
+    <div class="legend-item">
+        <span class="matrix-checkbox matrix-checkbox--active"></span>
+        <span>Accès accordé</span>
+    </div>
+    <div class="legend-item">
+        <span class="matrix-checkbox matrix-checkbox--inactive"></span>
+        <span>Accès refusé</span>
+    </div>
+    <div class="legend-item">
+        <i data-lucide="info" style="color: var(--primary-color); width:16px; height:16px;"></i>
+        <span>Cliquez sur une case pour modifier les droits en temps réel</span>
+    </div>
+    <div id="matrix-status" class="matrix-status"></div>
+</div>
+
+<!-- Matrix Table -->
+<div class="glass-card table-card matrix-card">
+    <div class="matrix-scroll">
+        <table class="matrix-table" id="matrix-table">
+            <thead>
+                <tr>
+                    <th class="matrix-corner">
+                        <span>Direction</span>
+                        <i data-lucide="arrow-right" style="width:14px;height:14px"></i>
+                        <span>Application</span>
+                    </th>
+                    {% for app in applications %}
+                        <th class="matrix-app-header" title="{{ app.description|default:app.nom }}">
+                            <div class="app-header-inner">
+                                <i data-lucide="{{ app.icone_name|default:'box' }}" class="app-col-icon"></i>
+                                <span>{{ app.nom }}</span>
+                            </div>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for direction in directions %}
+                    <tr>
+                        <td class="matrix-dir-cell">
+                            <div class="dir-cell-inner">
+                                <i data-lucide="building-2" style="width:14px;height:14px; flex-shrink:0;"></i>
+                                <span>{{ direction.nom }}</span>
+                                {% if direction.code %}
+                                    <span class="dir-code-badge">{{ direction.code }}</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        {% for app in applications %}
+                            {% with has_access=False %}
+                            <td class="matrix-cell">
+                                <button
+                                    class="matrix-toggle {% if direction.id|stringformat:'s'|add:','|add:app.id|stringformat:'s' in habilitations|join:',' %}matrix-toggle--on{% endif %}"
+                                    data-direction="{{ direction.id }}"
+                                    data-app="{{ app.id }}"
+                                    data-has-access="{% if direction in app.directions_autorisees.all %}1{% else %}0{% endif %}"
+                                    title="{{ direction.nom }} → {{ app.nom }}"
+                                    aria-label="Basculer l'accès de {{ direction.nom }} à {{ app.nom }}"
+                                >
+                                    {% if direction in app.directions_autorisees.all %}
+                                        <i data-lucide="check-circle-2" class="toggle-icon toggle-icon--on"></i>
+                                    {% else %}
+                                        <i data-lucide="circle" class="toggle-icon toggle-icon--off"></i>
+                                    {% endif %}
+                                </button>
+                            </td>
+                            {% endwith %}
+                        {% endfor %}
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="{{ applications|length|add:1 }}" class="text-center" style="padding: 3rem;">
+                            Aucune direction configurée.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const TOGGLE_URL = "{% url 'toggle_habilitation' %}";
+    const CSRF_TOKEN = "{{ csrf_token }}";
+    const statusEl = document.getElementById('matrix-status');
+
+    function showStatus(msg, type = 'info') {
+        statusEl.textContent = msg;
+        statusEl.className = `matrix-status matrix-status--${type}`;
+        setTimeout(() => {
+            statusEl.textContent = '';
+            statusEl.className = 'matrix-status';
+        }, 3000);
+    }
+
+    document.querySelectorAll('.matrix-toggle').forEach(btn => {
+        btn.addEventListener('click', async function () {
+            const dirId = this.dataset.direction;
+            const appId = this.dataset.app;
+            const isOn = this.dataset.hasAccess === '1';
+
+            // Optimistic UI update
+            this.classList.toggle('matrix-toggle--on');
+            this.innerHTML = isOn
+                ? `<i data-lucide="circle" class="toggle-icon toggle-icon--off"></i>`
+                : `<i data-lucide="check-circle-2" class="toggle-icon toggle-icon--on"></i>`;
+            this.dataset.hasAccess = isOn ? '0' : '1';
+            lucide.createIcons();
+
+            try {
+                const response = await fetch(TOGGLE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': CSRF_TOKEN,
+                    },
+                    body: JSON.stringify({
+                        direction_id: parseInt(dirId),
+                        application_id: parseInt(appId),
+                    }),
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showStatus(
+                        data.status === 'added' ? '✅ Habilitation accordée' : '🔴 Habilitation révoquée',
+                        data.status === 'added' ? 'success' : 'danger'
+                    );
+                } else {
+                    throw new Error(data.error || 'Erreur serveur');
+                }
+            } catch (err) {
+                // Rollback on error
+                this.classList.toggle('matrix-toggle--on');
+                this.innerHTML = isOn
+                    ? `<i data-lucide="check-circle-2" class="toggle-icon toggle-icon--on"></i>`
+                    : `<i data-lucide="circle" class="toggle-icon toggle-icon--off"></i>`;
+                this.dataset.hasAccess = isOn ? '1' : '0';
+                lucide.createIcons();
+                showStatus(`❌ Erreur : ${err.message}`, 'danger');
+            }
+        });
+    });
+</script>
+{% endblock %}

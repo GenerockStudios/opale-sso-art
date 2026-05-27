@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }} — Opale ART{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i data-lucide="{% if action == 'Créer' %}plus-circle{% else %}pencil{% endif %}" class="page-title-icon"></i> {{ page_title }}</h1>
+        <p class="page-subtitle">{% if action == 'Créer' %}Ajouter une nouvelle application au catalogue{% else %}Modifier les paramètres de l'application{% endif %}</p>
+    </div>
+    <div class="page-header-actions">
+        <a href="{% url 'gestion_apps_list' %}" class="btn btn-ghost">
+            <i data-lucide="arrow-left"></i> Retour au catalogue
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}"><i data-lucide="alert-circle"></i> {{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="form-page-layout">
+    <div class="glass-card form-card">
+        <div class="form-card-header">
+            <div class="form-card-icon">
+                <i data-lucide="layout-grid"></i>
+            </div>
+            <div>
+                <h2 class="form-card-title">Paramètres de l'application</h2>
+                <p class="form-card-subtitle">Configurez le logiciel et ses habilitations de direction</p>
+            </div>
+        </div>
+
+        <form method="post" class="opale-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-errors">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <!-- Identity -->
+            <div class="form-section-title">Identification</div>
+            <div class="form-row-2">
+                <div class="form-group {% if form.nom.errors %}has-error{% endif %}">
+                    <label class="form-label">{{ form.nom.label }}</label>
+                    {{ form.nom }}
+                    {% if form.nom.errors %}<span class="form-error-msg">{{ form.nom.errors|join:", " }}</span>{% endif %}
+                </div>
+                <div class="form-group {% if form.icone_name.errors %}has-error{% endif %}">
+                    <label class="form-label">{{ form.icone_name.label }}</label>
+                    {{ form.icone_name }}
+                    {% if form.icone_name.errors %}<span class="form-error-msg">{{ form.icone_name.errors|join:", " }}</span>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.url_acces.errors %}has-error{% endif %}">
+                <label class="form-label"><i data-lucide="link"></i> {{ form.url_acces.label }}</label>
+                {{ form.url_acces }}
+                {% if form.url_acces.errors %}<span class="form-error-msg">{{ form.url_acces.errors|join:", " }}</span>{% endif %}
+            </div>
+
+            <div class="form-group {% if form.description.errors %}has-error{% endif %}">
+                <label class="form-label">{{ form.description.label }}</label>
+                {{ form.description }}
+                {% if form.description.errors %}<span class="form-error-msg">{{ form.description.errors|join:", " }}</span>{% endif %}
+            </div>
+
+            <!-- Status -->
+            <div class="form-checks-grid" style="margin-bottom: 1.5rem;">
+                <label class="form-check-label">
+                    {{ form.est_actif }}
+                    <span>{{ form.est_actif.label }}</span>
+                    <small>Rendre l'application visible dans le tableau de bord</small>
+                </label>
+            </div>
+
+            <!-- Directions -->
+            <div class="form-section-title">Habilitations par Direction</div>
+            <p style="font-size:0.85rem; color:var(--color-text-muted); margin-bottom:1rem;">
+                Cochez les directions autorisées à accéder à cette application.
+            </p>
+            <div class="directions-checkbox-grid">
+                {% for checkbox in form.directions %}
+                    <label class="direction-checkbox-label">
+                        {{ checkbox.tag }}
+                        <span>{{ checkbox.choice_label }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+            {% if form.directions.errors %}
+                <span class="form-error-msg">{{ form.directions.errors|join:", " }}</span>
+            {% endif %}
+
+            <div class="form-actions form-actions--spread" style="margin-top:2rem;">
+                <a href="{% url 'gestion_apps_list' %}" class="btn btn-ghost">Annuler</a>
+                <button type="submit" class="btn btn-primary">
+                    <i data-lucide="save"></i> {{ action }} l'application
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

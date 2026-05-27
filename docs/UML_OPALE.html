@@ -1,0 +1,427 @@
+<!DOCTYPE html><html><head>
+      <title>UML_OPALE</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\ADMIN\.antigravity\extensions\shd101wyy.markdown-preview-enhanced-0.8.22-universal\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:///c:\Users\ADMIN\.antigravity\extensions\shd101wyy.markdown-preview-enhanced-0.8.22-universal\crossnote\dependencies\mermaid\mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script>
+    </head>
+    <body for="html-export">
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="documentation-technique-uml--projet-opale">Documentation Technique UML — Projet OPALE </h1>
+<hr>
+<h2 id="1-diagramme-de-cas-dutilisation-use-case-diagram">1. Diagramme de Cas d'Utilisation (Use Case Diagram) </h2>
+<h3 id="description">Description </h3>
+<p>Ce diagramme identifie les deux acteurs principaux du système OPALE et leurs interactions. L'<strong>Utilisateur</strong> (Collaborateur ou Manager) est le principal consommateur du Hub. L'<strong>Administrateur</strong> hérite de tous les cas d'utilisation de l'Utilisateur et dispose de fonctions de gestion étendues. Le cas « Lancer une Application » inclut systématiquement la vérification des droits directionnels, cœur du mécanisme d'habilitation d'OPALE.</p>
+<div class="mermaid">graph LR
+    Utilisateur["👤 Utilisateur\n(Collaborateur / Manager)"]
+    Admin["🔑 Administrateur"]
+
+    subgraph OPALE ["Système OPALE — Service Hub ART"]
+        UC1(["S'authentifier"])
+        UC2(["Consulter le Dashboard"])
+        UC3(["Lancer une Application"])
+        UC4(["Vérifier les\nDroits d'accès"])
+        UC5(["Gérer son Profil"])
+        UC6(["Consulter l'Annuaire"])
+        UC7(["Gérer les Utilisateurs"])
+        UC8(["Gérer le Catalogue\ndes Applications"])
+        UC9(["Gérer la Matrice\ndes Droits"])
+        UC10(["Consulter les\nLogs d'Audit"])
+        UC11(["Journaliser\nl'Activité"])
+        UC12(["Désactiver / Activer\nun Compte"])
+        UC13(["Filtrer les Logs"])
+
+        %% «include» — sous-comportement OBLIGATOIRE
+        UC3 -.-&gt;|"«include»"| UC4
+        UC3 -.-&gt;|"«include»"| UC11
+        UC7 -.-&gt;|"«include»"| UC11
+        UC9 -.-&gt;|"«include»"| UC11
+
+        %% «extend» — comportement OPTIONNEL conditionnel
+        UC12 -.-&gt;|"«extend»"| UC7
+        UC13 -.-&gt;|"«extend»"| UC10
+    end
+
+    %% Généralisation entre acteurs (Admin hérite de Utilisateur)
+    Admin --&gt;|"«héritage»"| Utilisateur
+
+    Utilisateur --&gt; UC1
+    Utilisateur --&gt; UC2
+    Utilisateur --&gt; UC3
+    Utilisateur --&gt; UC5
+    Utilisateur --&gt; UC6
+
+    Admin --&gt; UC7
+    Admin --&gt; UC8
+    Admin --&gt; UC9
+    Admin --&gt; UC10
+
+    style Utilisateur fill:#e8f4f8,color:#333,stroke:#4a90d9
+    style Admin fill:#f8e8e8,color:#333,stroke:#d94a4a
+    style OPALE fill:#fbfdff,color:#333,stroke:#4a90d9
+</div><hr>
+<h2 id="2-diagramme-de-classes-class-diagram">2. Diagramme de Classes (Class Diagram) </h2>
+<h3 id="description-1">Description </h3>
+<p>Ce diagramme représente le schéma de données complet du projet, en correspondance exacte avec les modèles définis dans le code métier (<code>models.py</code>). La classe <strong><code>Utilisateur</code></strong> regroupe les informations du profil. La <strong><code>Direction</code></strong> est le pivot de sécurité central. <strong><code>DirectionApplication</code></strong> est la classe d'association de la relation entre une direction et plusieurs applications (l'habilitation). <strong><code>LogActivite</code></strong> trace chaque action réalisée. Les associations sont bidirectionnelles (sans flèche) et annotées de verbes à l'infinitif.</p>
+<div class="mermaid">classDiagram
+    direction TB
+
+    class Utilisateur {
+        - id : int
+        - username : String
+        - password : String
+        - email : String
+        - first_name : String
+        - last_name : String
+        - is_active : boolean
+        - date_joined : Date
+        - role : String
+        + get_full_name() String
+    }
+
+    class Direction {
+        - id : int
+        - nom : String
+        - code : String
+        - description : String
+        - created_at : Date
+    }
+
+    class Application {
+        - id : int
+        - nom : String
+        - url_acces : String
+        - icone_name : String
+        - description : String
+        - est_actif : boolean
+        - created_at : Date
+    }
+
+    class DirectionApplication {
+        &lt;&lt;classe-association&gt;&gt;
+        - date_attribution : Date
+    }
+
+    class LogActivite {
+        - id : int
+        - action : String
+        - ip_address : String
+        - details : String
+        - cree_le : Date
+    }
+
+    Direction "0..1" -- "0..*" Utilisateur : employer
+    Utilisateur "0..1" -- "0..*" LogActivite : générer
+    Direction "0..*" -- "0..*" Application : habiliter
+    DirectionApplication .. Direction
+    DirectionApplication .. Application
+</div><hr>
+<h2 id="3-diagrammes-de-séquence">3. Diagrammes de Séquence </h2>
+<hr>
+<h3 id="sd-1--authentification-sécurisée">SD 1 : Authentification Sécurisée </h3>
+<p><strong>Description :</strong> Ce diagramme modélise le processus de connexion d'un utilisateur au portail OPALE. L'utilisateur soumet ses identifiants. Le système vérifie les informations en base de données. Si la vérification réussit, une session est créée, la connexion est journalisée, et l'utilisateur est redirigé vers son tableau de bord personnalisé. En cas d'échec, la tentative est également tracée et un message d'erreur est affiché.</p>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant Systeme as : Système
+    participant JournalAudit as : JournalAudit
+    participant Base as : Base de données
+
+    Utilisateur-&gt;&gt;+Systeme: saisir les identifiants
+    Systeme-&gt;&gt;+Base: rechercher le compte utilisateur
+    Base--&gt;&gt;-Systeme: données du compte
+
+    alt identifiants incorrects
+        Systeme-&gt;&gt;JournalAudit: créer une trace d'échec
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;Utilisateur: afficher un message d'erreur
+    else identifiants corrects
+        Systeme-&gt;&gt;Systeme: vérifier le mot de passe
+        Systeme-&gt;&gt;Base: ouvrir une session utilisateur
+        Base--&gt;&gt;Systeme: session enregistrée
+        Systeme-&gt;&gt;JournalAudit: créer une trace de connexion
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;-Utilisateur: afficher le tableau de bord
+    end
+</div><hr>
+<h3 id="sd-2--lancement-dune-application-métier">SD 2 : Lancement d'une Application Métier </h3>
+<p><strong>Description :</strong> Ce flux est le cœur du Hub OPALE. Lorsqu'un utilisateur clique sur une application, le système vérifie en temps réel que sa direction est bien habilitée pour cet accès. Si l'habilitation est confirmée, l'événement est tracé dans le journal d'audit et l'utilisateur est redirigé vers l'application. Tout accès non autorisé est également journalisé et l'utilisateur en est refusé l'accès.</p>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant Systeme as : Système
+    participant JournalAudit as : JournalAudit
+    participant Base as : Base de données
+
+    rect rgb(240, 248, 255)
+        Note over Utilisateur, Base: réf. SD1 — l'utilisateur dispose d'une session active
+    end
+
+    Utilisateur-&gt;&gt;+Systeme: sélectionner une application
+    Systeme-&gt;&gt;+Base: vérifier les droits d'accès
+    Base--&gt;&gt;-Systeme: résultat de la vérification
+
+    alt direction non habilitée
+        Systeme-&gt;&gt;JournalAudit: créer une trace de refus
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;Utilisateur: afficher un message de refus
+    else direction habilitée
+        Systeme-&gt;&gt;JournalAudit: créer une trace d'accès accordé
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;-Utilisateur: ouvrir l'application
+    end
+</div><hr>
+<h3 id="sd-3--gestion-crud-des-utilisateurs-par-ladministrateur">SD 3 : Gestion CRUD des Utilisateurs (par l'Administrateur) </h3>
+<p><strong>Description :</strong> Ce diagramme décrit le cycle complet de création d'un compte utilisateur. L'administrateur remplit les informations. Le système valide les données saisies, sécurise le mot de passe avant stockage, puis enregistre le nouveau compte en base de données. L'action est tracée dans le journal d'audit.</p>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    actor Administrateur
+    participant Systeme as : Système
+    participant JournalAudit as : JournalAudit
+    participant Base as : Base de données
+
+    rect rgb(240, 248, 255)
+        Note over Administrateur, Base: réf. SD1 — l'administrateur dispose d'une session active
+    end
+
+    Administrateur-&gt;&gt;+Systeme: saisir les informations du compte
+    Systeme-&gt;&gt;Systeme: valider les données saisies
+
+    alt données invalides
+        Systeme--&gt;&gt;Administrateur: afficher les erreurs
+    else données valides
+        Systeme-&gt;&gt;Systeme: chiffrer le mot de passe
+        Systeme-&gt;&gt;+Base: enregistrer le compte
+        Base--&gt;&gt;-Systeme: compte créé
+        Systeme-&gt;&gt;JournalAudit: créer une trace de création
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;-Administrateur: confirmer la création
+    end
+</div><hr>
+<h3 id="sd-4--attribution-des-droits--matrice-directionsapplications">SD 4 : Attribution des Droits — Matrice Directions/Applications </h3>
+<p><strong>Description :</strong> L'administrateur modifie les droits d'accès sous forme de grille. L'habilitation est créée ou supprimée selon si elle existait.</p>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    actor Administrateur
+    participant Systeme as : Système
+    participant JournalAudit as : JournalAudit
+    participant Base as : Base de données
+
+    rect rgb(240, 248, 255)
+        Note over Administrateur, Base: réf. SD1 — l'administrateur dispose d'une session active
+    end
+
+    Administrateur-&gt;&gt;+Systeme: modifier l'accès d'une direction
+    Systeme-&gt;&gt;+Base: vérifier si l'habilitation existe déjà
+    Base--&gt;&gt;-Systeme: résultat de la vérification
+
+    alt habilitation inexistante — attribution
+        Systeme-&gt;&gt;Base: créer l'habilitation
+        Base--&gt;&gt;Systeme: confirmé
+        Systeme-&gt;&gt;JournalAudit: créer une trace d'attribution
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;Administrateur: accès accordé
+    else habilitation existante — révocation
+        Systeme-&gt;&gt;Base: supprimer l'habilitation
+        Base--&gt;&gt;Systeme: confirmé
+        Systeme-&gt;&gt;JournalAudit: créer une trace de révocation
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;-Administrateur: accès retiré
+    end
+</div><hr>
+<h3 id="sd-5--mise-à-jour-du-profil-collaborateur">SD 5 : Mise à jour du Profil Collaborateur </h3>
+<p><strong>Description :</strong> Ce diagramme décrit la mise à jour des informations personnelles d'un collaborateur.</p>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant Systeme as : Système
+    participant JournalAudit as : JournalAudit
+    participant Base as : Base de données
+
+    rect rgb(240, 248, 255)
+        Note over Utilisateur, Base: réf. SD1 — l'utilisateur dispose d'une session active
+    end
+
+    Utilisateur-&gt;&gt;+Systeme: modifier ses informations personnelles
+    Systeme-&gt;&gt;Systeme: valider les données
+
+    alt données invalides
+        Systeme--&gt;&gt;Utilisateur: afficher les erreurs
+    else données valides
+        Systeme-&gt;&gt;+Base: mettre à jour le compte
+        Base--&gt;&gt;-Systeme: modification enregistrée
+        Systeme-&gt;&gt;JournalAudit: créer une trace de mise à jour
+        JournalAudit-&gt;&gt;Base: enregistrer le journal
+        Systeme--&gt;&gt;-Utilisateur: confirmer la mise à jour
+    end
+</div><hr>
+<h2 id="4-diagramme-dactivité-activity-diagram">4. Diagramme d'Activité (Activity Diagram) </h2>
+<h3 id="description-2">Description </h3>
+<p>Ce diagramme modélise le processus global d'un employé depuis l'accès au portail jusqu'au lancement d'une application. Trois points de contrôle critiques structurent ce flux :</p>
+<ol>
+<li><strong>Vérification de Session :</strong> Présence d'une session valide ou redirection vers la page de login.</li>
+<li><strong>Filtrage par Direction :</strong> Le tableau de bord n'affiche que les applications pour lesquelles la direction de l'utilisateur est habilitée.</li>
+<li><strong>Contrôle au Lancement :</strong> Vérification redondante et systématique à chaque tentative de lancement, garantissant qu'un accès direct à l'URL est également bloqué.</li>
+</ol>
+<div class="mermaid">flowchart TD
+    Start(["Début — Accès OPALE"])
+    CheckSession{{"Session\nvalide ?"}}
+    LoginPage[/"Page de Connexion"/]
+    CheckCredentials{{"Identifiants\ncorrects ?"}}
+    LoginError[/"Erreur — Identifiants invalides"/]
+    LoadProfile["Chargement du Profil Utilisateur"]
+    FilterApps["Filtrage des Applications\npar Direction et Statut Actif"]
+    CheckDirection{{"Direction\nassignée ?"}}
+    EmptyDash[/"Tableau de bord vide\n(aucune application disponible)"/]
+    LoadDash[/"Affichage du Tableau de Bord\n(applications autorisées)"/]
+    SelectApp["Sélection d'une Application"]
+    LaunchCheck{{"Direction habilitée\npour cette application ?"}}
+    AccessDenied[/"Accès refusé\nJournalisation du refus\nRetour au tableau de bord"/]
+    LogEvent["Journalisation de l'accès\n(utilisateur, application, IP, horodatage)"]
+    Redirect["Redirection vers l'application"]
+    ExternalApp(["Application Métier chargée"])
+    End(["Fin de Session"])
+
+    Start --&gt; CheckSession
+    CheckSession --&gt;|"Non"| LoginPage
+    CheckSession --&gt;|"Oui"| LoadProfile
+    LoginPage --&gt; CheckCredentials
+    CheckCredentials --&gt;|"Non"| LoginError
+    LoginError --&gt; LoginPage
+    CheckCredentials --&gt;|"Oui"| LoadProfile
+
+    LoadProfile --&gt; CheckDirection
+    CheckDirection --&gt;|"Non"| EmptyDash
+    CheckDirection --&gt;|"Oui"| FilterApps
+    EmptyDash --&gt; End
+
+    FilterApps --&gt; LoadDash
+    LoadDash --&gt; SelectApp
+    SelectApp --&gt; LaunchCheck
+
+    LaunchCheck --&gt;|"Non"| AccessDenied
+    AccessDenied --&gt; LoadDash
+
+    LaunchCheck --&gt;|"Oui"| LogEvent
+    LogEvent --&gt; Redirect
+    Redirect --&gt; ExternalApp
+    ExternalApp --&gt; End
+
+    style Start fill:#e8f8f5,color:#1a472a,stroke:#2ecc71
+    style End fill:#fdedec,color:#922b21,stroke:#e74c3c
+    style ExternalApp fill:#ebf5fb,color:#1a3a5c,stroke:#3498db
+    style AccessDenied fill:#f9ebea,color:#7d2c2c,stroke:#e74c3c
+    style LogEvent fill:#f4ecf7,color:#4a235a,stroke:#9b59b6
+    style LaunchCheck fill:#ebedef,color:#2c3e50,stroke:#bdc3c7
+    style CheckSession fill:#ebedef,color:#2c3e50,stroke:#bdc3c7
+    style CheckCredentials fill:#ebedef,color:#2c3e50,stroke:#bdc3c7
+    style CheckDirection fill:#ebedef,color:#2c3e50,stroke:#bdc3c7
+</div><hr>
+<h2 id="5-architecture-des-modules--vue-des-dépendances">5. Architecture des Modules — Vue des Dépendances </h2>
+<div class="mermaid">graph LR
+    subgraph opale_project["opale_project — Configuration centrale"]
+        settings["settings.py\nModèle utilisateur personnalisé"]
+    end
+
+    subgraph accounts["accounts — Gestion des Utilisateurs"]
+        A_M["Utilisateur\n(modèle)"]
+        A_V["Vues\nprofil · annuaire · CRUD admin"]
+        A_F["Formulaires\nProfil · Création admin"]
+    end
+
+    subgraph organizations["organizations — Structure Organisationnelle"]
+        O_M["Direction\n(modèle)"]
+    end
+
+    subgraph catalogue["catalogue — Catalogue des Applications"]
+        C_M["Application · Habilitation\n(modèles)"]
+        C_V["Vues\nTableau de bord · Lancement · CRUD"]
+        C_F["Formulaires\nApplication"]
+    end
+
+    subgraph audit["audit — Traçabilité &amp; Sécurité"]
+        AU_M["Journal\n(modèle)"]
+        AU_V["Vues\nDashboard audit · Matrice · Toggle"]
+        AU_L["Logique\nJournalisation · Extraction IP"]
+    end
+
+    O_M --&gt; A_M
+    O_M --&gt; C_M
+    A_M --&gt; AU_M
+    AU_L --&gt; AU_M
+    C_V --&gt; AU_L
+    A_V --&gt; AU_L
+    AU_V --&gt; AU_L
+    settings --&gt; A_M
+
+    style opale_project fill:#eaedf4,color:#333,stroke:#4a90d9
+    style accounts fill:#e8effa,color:#333,stroke:#4a90d9
+    style organizations fill:#eafaf0,color:#333,stroke:#2ecc71
+    style catalogue fill:#f2eafa,color:#333,stroke:#9b59b6
+    style audit fill:#faebea,color:#333,stroke:#e74c3c
+</div><hr>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('div.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('div.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('div.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>

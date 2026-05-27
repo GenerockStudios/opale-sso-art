@@ -1,0 +1,161 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OPALE — Service Hub Unifié de l'ART</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+  </head>
+  <body class="landing-body">
+    <!-- Landing Navigation -->
+    <header class="landing-header glass-card">
+      <div class="header-left">
+        <div class="logo">
+          OPALE <span style="font-weight: 300; opacity: 0.7">| ART</span>
+        </div>
+      </div>
+      <div class="header-right">
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">
+          <i data-lucide="layout-dashboard"></i> Mon Tableau de bord
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary">
+          <i data-lucide="log-in"></i> Connexion
+        </a>
+        {% endif %}
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    {% static 'img/hero_bg.jpg' as hero_bg %}
+    <section
+      class="landing-hero"
+      style="background-image: url('{{ hero_bg }}');"
+    >
+      <div class="landing-hero-overlay"></div>
+      <div class="landing-hero-content">
+        <img
+          src="{% static 'img/art_logo.jpg' %}"
+          alt="ART Logo"
+          class="landing-art-logo"
+          style="
+            width: 150px;
+            height: 120px;
+            border-radius: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+          "
+        />
+        <h1 class="landing-title">Portail d'Accès Unifié</h1>
+        <p class="landing-subtitle">
+          L'excellence opérationnelle de l'Agence de Régulation des
+          Télécommunications centralisée en un seul point d'accès sécurisé et
+          intelligent.
+        </p>
+        <div class="landing-cta">
+          {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="btn btn-primary btn-landing"
+            >Accéder à mes applications</a
+          >
+          {% else %}
+          <a href="{% url 'login' %}" class="btn btn-primary btn-landing">
+            S'authentifier
+            <i data-lucide="arrow-right"></i>
+          </a>
+          {% endif %}
+          <a href="#features" class="btn btn-ghost btn-landing-ghost">
+            Découvrir les fonctionnalités
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="landing-features">
+      <div class="landing-container">
+        <h2 class="section-title">Une plateforme pensée pour la performance</h2>
+        <div class="features-grid">
+          <div class="feature-card glass-card">
+            <img
+              src="{% static 'img/network.jpg' %}"
+              alt="Réseau sécurisé"
+              class="feature-img"
+            />
+            <div class="feature-card-body">
+              <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+              <h3>Sécurité par Direction</h3>
+              <p>
+                Chaque logiciel métier est filtré par votre direction de
+                rattachement. Les accès sont cloisonnés, assurant une conformité
+                parfaite avec les normes de sécurité de l'agence.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card glass-card">
+            <img
+              src="{% static 'img/team.jpg' %}"
+              alt="Équipe technique"
+              class="feature-img"
+            />
+            <div class="feature-card-body">
+              <div class="feature-icon"><i data-lucide="activity"></i></div>
+              <h3>Traçabilité Complète</h3>
+              <p>
+                Une journalisation en temps réel de tous les accès applicatifs.
+                Le système garantit une visibilité totale de l'utilisation des
+                solutions métiers au sein de l'intranet.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="feature-card glass-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: flex-start;
+              padding: 2rem;
+            "
+          >
+            <div class="feature-icon"><i data-lucide="users"></i></div>
+            <h3>Annuaire Collaboratif</h3>
+            <p>
+              Recherchez et contactez n'importe quel collaborateur de l'ART
+              instantanément. Fini les silos d'information entre la Direction
+              Technique et la Direction Financière.
+            </p>
+            <a
+              href="{% url 'login' %}"
+              class="btn btn-secondary"
+              style="margin-top: 1rem"
+              >Voir l'annuaire →</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      <p>
+        © 2026 Agence de Régulation des Télécommunications (ART) — Portail
+        Service Hub Unifié
+      </p>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
