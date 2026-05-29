@@ -43,20 +43,20 @@ Si vous venez de cloner ou de copier le projet pour la première fois :
 
 4. **Installer les Dépendances (y compris ldap3) :**
    ```powershell
-   pip install -r requirements.txt
+   py -3.13 -m pip install -r requirements.txt
    ```
 
 5. **Initialiser la Base de Données Relationnelle (Django) :**
    ```powershell
-   python manage.py migrate
-   python seeds.py
+   py -3.13 manage.py migrate
+   py -3.13 seeds.py
    ```
    *Le script `seeds.py` peuple les tables Django avec les directions et enregistre les 3 nouvelles applications PoC (Zimbra Mail, Concessions, Supervision du Spectre) ainsi que la matrice des droits.*
 
 6. **Peupler l'Annuaire OpenLDAP d'Entreprise :**
    Exécutez notre script d'injection LDAP :
    ```powershell
-   python seed_ldap.py
+   py -3.13 seed_ldap.py
    ```
    *Ce script se connecte en admin à votre conteneur OpenLDAP Docker, crée la structure d'organisation de l'ART (utilisateurs, attributs de profil, groupes de rôles) et injecte les 5 comptes de test.*
 
@@ -66,8 +66,7 @@ Si vous venez de cloner ou de copier le projet pour la première fois :
 
 1. **Démarrer le Serveur de Développement Django :**
    ```powershell
-   .\.venv\Scripts\activate
-   python manage.py runserver
+   py -3.13 manage.py runserver
    ```
    Le portail est accessible à l'adresse : **[http://localhost:8000/](http://localhost:8000/)**
 
