@@ -69,11 +69,24 @@ def profile_view(request):
     if request.method == 'POST':
         form = ProfilForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
+            user = form.save()
             log_activite(request, "Mise à jour du profil", {
                 "champs": list(form.changed_data)
             })
-            messages.success(request, "✅ Votre profil a été mis à jour avec succès.")
+            
+            # Synchronisation AD/LDAP
+            from accounts.ad_client import get_ad_client
+            client = get_ad_client()
+            ad_sync_success = True
+            if client.is_enabled():
+                try:
+                    client.update_user(user)
+                except Exception as ad_err:
+                    ad_sync_success = False
+                    messages.warning(request, f"⚠️ Profil mis à jour localement, mais la synchronisation Active Directory a échoué : {ad_err}")
+            
+            if ad_sync_success:
+                messages.success(request, "✅ Votre profil a été mis à jour avec succès.")
             return redirect('profile')
         else:
             messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
@@ -100,7 +113,20 @@ def change_password_view(request):
             pw_form.save()
             update_session_auth_hash(request, pw_form.user)
             log_activite(request, "Changement de mot de passe")
-            messages.success(request, "🔐 Mot de passe modifié avec succès.")
+            
+            # Synchronisation AD/LDAP
+            from accounts.ad_client import get_ad_client
+            client = get_ad_client()
+            ad_sync_success = True
+            if client.is_enabled():
+                try:
+                    client.update_user(request.user, password=pw_form.cleaned_data.get('new_password1'))
+                except Exception as ad_err:
+                    ad_sync_success = False
+                    messages.warning(request, f"⚠️ Mot de passe modifié localement, mais la synchronisation Active Directory a échoué : {ad_err}")
+            
+            if ad_sync_success:
+                messages.success(request, "🔐 Mot de passe modifié avec succès.")
             return redirect('profile')
         else:
             form = ProfilForm(instance=request.user)
@@ -158,7 +184,22 @@ def gestion_users_create(request):
         if form.is_valid():
             user = form.save()
             log_activite(request, f"Création utilisateur : {user.username}", {"user_id": user.id})
-            messages.success(request, f"✅ Utilisateur « {user.get_full_name() or user.username} » créé avec succès.")
+            
+            # Synchronisation AD/LDAP
+            from accounts.ad_client import get_ad_client
+            client = get_ad_client()
+            ad_sync_success = True
+            if client.is_enabled():
+                try:
+                    # On récupère le mot de passe brut saisi
+                    raw_pwd = form.cleaned_data.get('password') or "Password123!"
+                    client.create_user(user, password=raw_pwd)
+                except Exception as ad_err:
+                    ad_sync_success = False
+                    messages.warning(request, f"⚠️ Utilisateur créé localement, mais la synchronisation Active Directory a échoué : {ad_err}")
+            
+            if ad_sync_success:
+                messages.success(request, f"✅ Utilisateur « {user.get_full_name() or user.username} » créé avec succès.")
             return redirect('gestion_users_list')
         else:
             messages.error(request, "Veuillez corriger les erreurs.")
@@ -181,9 +222,23 @@ def gestion_users_edit(request, user_id):
     if request.method == 'POST':
         form = UtilisateurAdminForm(request.POST, instance=user_obj)
         if form.is_valid():
-            form.save()
+            user = form.save()
             log_activite(request, f"Modification utilisateur : {user_obj.username}", {"user_id": user_obj.id})
-            messages.success(request, f"✅ Utilisateur « {user_obj.get_full_name() or user_obj.username} » modifié.")
+            
+            # Synchronisation AD/LDAP
+            from accounts.ad_client import get_ad_client
+            client = get_ad_client()
+            ad_sync_success = True
+            if client.is_enabled():
+                try:
+                    raw_pwd = form.cleaned_data.get('password')
+                    client.update_user(user, password=raw_pwd)
+                except Exception as ad_err:
+                    ad_sync_success = False
+                    messages.warning(request, f"⚠️ Utilisateur modifié localement, mais la synchronisation Active Directory a échoué : {ad_err}")
+            
+            if ad_sync_success:
+                messages.success(request, f"✅ Utilisateur « {user_obj.get_full_name() or user_obj.username} » modifié.")
             return redirect('gestion_users_list')
         else:
             messages.error(request, "Veuillez corriger les erreurs.")
@@ -207,12 +262,27 @@ def gestion_users_toggle(request, user_id):
         if user_obj == request.user:
             messages.error(request, "Vous ne pouvez pas désactiver votre propre compte.")
             return redirect('gestion_users_list')
+        
         user_obj.is_active = not user_obj.is_active
         user_obj.save()
+        
+        # Synchronisation AD/LDAP
+        from accounts.ad_client import get_ad_client
+        client = get_ad_client()
+        ad_sync_success = True
+        if client.is_enabled():
+            try:
+                client.toggle_user_status(user_obj.username, user_obj.is_active)
+            except Exception as ad_err:
+                ad_sync_success = False
+                messages.warning(request, f"⚠️ Statut modifié localement, mais la synchronisation Active Directory a échoué : {ad_err}")
+        
         action = "Activation" if user_obj.is_active else "Désactivation"
         log_activite(request, f"{action} utilisateur : {user_obj.username}", {"user_id": user_obj.id})
         status = "activé" if user_obj.is_active else "désactivé"
-        messages.success(request, f"Compte de {user_obj.username} {status}.")
+        
+        if ad_sync_success:
+            messages.success(request, f"Compte de {user_obj.username} {status}.")
     return redirect('gestion_users_list')
 
 
@@ -228,8 +298,24 @@ def gestion_users_delete(request, user_id):
     if request.method == 'POST':
         username = user_obj.username
         log_activite(request, f"Suppression utilisateur : {username}", {"user_id": user_obj.id})
+        
+        # Synchronisation AD/LDAP
+        from accounts.ad_client import get_ad_client
+        client = get_ad_client()
+        ad_sync_success = True
+        ad_err_msg = ""
+        if client.is_enabled():
+            try:
+                client.delete_user(username)
+            except Exception as ad_err:
+                ad_sync_success = False
+                ad_err_msg = str(ad_err)
+                
         user_obj.delete()
-        messages.success(request, f"Utilisateur « {username} » supprimé définitivement.")
+        if ad_sync_success:
+            messages.success(request, f"Utilisateur « {username} » supprimé définitivement.")
+        else:
+            messages.warning(request, f"⚠️ Utilisateur supprimé localement, mais la suppression de l'annuaire Active Directory a échoué : {ad_err_msg}")
         return redirect('gestion_users_list')
 
     return render(request, 'accounts/admin/user_confirm_delete.html', {'user_obj': user_obj})

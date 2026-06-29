@@ -107,11 +107,21 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+import json
+
 ACTIVE_DIRECTORY = {
+    'SERVER_TYPE': 'OPENLDAP',
     'SERVER': 'ldap://localhost:389',
     'DOMAIN': 'art.cm',
     'BASE_DN': 'dc=art,dc=cm',
-    'MOCK_MODE': False,  # Désactivé pour interroger le vrai serveur LDAP Docker en local
+    'USER_OU': 'ou=users,dc=art,dc=cm',
+    'GROUP_OU': 'ou=groups,dc=art,dc=cm',
+    'BIND_USER': 'cn=admin,dc=art,dc=cm',
+    'BIND_PASSWORD': 'adminpassword',
+    'MOCK_MODE': False,
+    'USE_SSL': False,
+    'VERIFY_CERT': False,
+    'CONNECTION_TIMEOUT': 5,
     'MOCK_USERS': {
         'j.dupont': {
             'password': 'password123',
@@ -145,7 +155,6 @@ ACTIVE_DIRECTORY = {
             'department': 'Ressources Humaines',
             'role': 'MANAGER',
         },
-        # Utilisateur inédit présent dans l'AD mais inexistant dans la base locale Django au départ
         'g.ndono': {
             'password': 'password123',
             'first_name': 'Guillaume',
@@ -156,6 +165,21 @@ ACTIVE_DIRECTORY = {
         }
     }
 }
+
+LDAP_CONFIG_FILE = BASE_DIR / 'ldap_config.json'
+if LDAP_CONFIG_FILE.exists():
+    try:
+        with open(LDAP_CONFIG_FILE, 'r', encoding='utf-8') as f:
+            json_config = json.load(f)
+            for key, val in json_config.items():
+                if key == 'SERVER_URL':
+                    ACTIVE_DIRECTORY['SERVER'] = val
+                else:
+                    ACTIVE_DIRECTORY[key] = val
+    except Exception as e:
+        import sys
+        print(f"[-] Erreur de chargement ldap_config.json: {e}", file=sys.stderr)
+
 
 
 # ===========================================================================

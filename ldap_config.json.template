@@ -1,0 +1,14 @@
+{
+  "SERVER_TYPE": "ACTIVE_DIRECTORY",
+  "SERVER_URL": "ldaps://localhost:636",
+  "DOMAIN": "art.cm",
+  "BASE_DN": "dc=art,dc=cm",
+  "USER_OU": "ou=users,dc=art,dc=cm",
+  "GROUP_OU": "ou=groups,dc=art,dc=cm",
+  "BIND_USER": "cn=admin,dc=art,dc=cm",
+  "BIND_PASSWORD": "adminpassword",
+  "MOCK_MODE": true,
+  "USE_SSL": false,
+  "VERIFY_CERT": false,
+  "CONNECTION_TIMEOUT": 5
+}
